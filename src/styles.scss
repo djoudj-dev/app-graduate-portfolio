@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+@use "tailwindcss";
+@import url('https://fonts.googleapis.com/css?family=Noto%20Sans%20Tamil%20Supplement:700|Noto%20Sans%20Tamil%20Supplement:400');
+
+@theme {
+  --color-text: oklch(15.83% 0.003 248.00);
+  --color-background: oklch(96.95% 0.005 258.32);
+  --color-primary: oklch(60.52% 0.091 245.76);
+  --color-secondary: oklch(76.73% 0.073 244.42);
+  --color-accent: oklch(70.89% 0.118 245.48);
+
+  --font-display: "Noto Sans Tamil Supplement", "sans-serif";
+}
