@@ -19,6 +19,9 @@
     "module": "ES2022"
   },
   "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "defaultCategory": "error"
+    },
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
