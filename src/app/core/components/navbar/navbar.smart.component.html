@@ -1,15 +1,17 @@
-<nav class="text-md md:text-xl bg-primary dark:bg-primary text-white p-4 fixed top-0 w-full z-50">
-  <div class="container mx-auto flex items-center">
+<nav
+  class="text-base sm:text-base md:text-xl bg-primary text-white shadow-xs shadow-secondary p-2 fixed top-0 w-full z-50"
+>
+  <div class="container mx-auto flex items-center justify-between max-w-5xl">
     <!-- Logo -->
-    <a class="text-lg font-bold flex-1 text-left" routerLink="/">Mon Portfolio</a>
+    <a class="text-lg font-bold flex-none" routerLink="/">Mon Portfolio</a>
 
     <!-- Menu Desktop -->
-    <ul class="hidden md:flex flex-1 justify-center gap-x-8">
+    <ul class="hidden md:flex flex-none justify-center gap-x-4">
       <li>
         <a
           routerLink="/home#about"
           routerLinkActive="font-bold"
-          class="hover:text-text hover:scale-105 transition-all duration-300"
+          class="hover:text-text hover:scale-105 hover:invert transition-all duration-300"
           >À propos</a
         >
       </li>
@@ -17,7 +19,7 @@
         <a
           routerLink="/home#projects"
           routerLinkActive="font-bold"
-          class="hover:text-text hover:scale-105 transition-all duration-300"
+          class="hover:text-text hover:scale-105 hover:invert transition-all duration-300"
           >Projets</a
         >
       </li>
@@ -25,15 +27,14 @@
         <a
           routerLink="/home#contact"
           routerLinkActive="font-bold"
-          class="hover:text-text hover:scale-105 transition-all duration-300"
+          class="hover:text-text hover:scale-105 hover:invert transition-all duration-300"
           >Contact</a
         >
       </li>
     </ul>
 
-    <!-- Zone boutons DarkMode + Settings en Desktop -->
-    <div class="hidden md:flex flex-1 justify-end items-center gap-x-4">
-      <!-- Bouton DarkMode -->
+    <!-- Zone boutons DarkMode + Settings (Desktop uniquement) -->
+    <div class="hidden md:flex flex-none gap-x-4">
       <button
         class="focus:outline-none hover:scale-105 transition-all duration-300"
         aria-label="DarkMode"
@@ -47,8 +48,6 @@
           [ngSrc]="darkMode ? '/images/mobile/light.svg' : '/images/mobile/moon.svg'"
         />
       </button>
-
-      <!-- Bouton Settings -->
       <a
         routerLink="/settings"
         class="focus:outline-none hover:scale-105 transition-all duration-300"
@@ -64,61 +63,63 @@
       </a>
     </div>
 
-    <!-- Zone boutons DarkMode + Menu Hamburger en Mobile -->
-    <div class="flex items-center gap-x-4 md:hidden order-last">
-      <!-- Bouton DarkMode -->
-      <button
-        class="focus:outline-none hover:scale-105 transition-all duration-300"
-        aria-label="DarkMode"
-        (click)="toggleDarkMode()"
-      >
-        <img
-          class="w-6 h-6 transition-all duration-300 hover:invert hover:brightness-125"
-          height="24"
-          width="24"
-          alt="DarkMode"
-          [ngSrc]="darkMode ? '/images/mobile/light.svg' : '/images/mobile/moon.svg'"
-        />
-      </button>
-
-      <!-- Menu Hamburger -->
-      <button
-        class="focus:outline-none z-50"
-        aria-label="Ouvrir/fermer le menu"
-        (click)="toggleMenu()"
-      >
-        <img
-          class="w-6 h-6"
-          height="24"
-          width="24"
-          [ngSrc]="menuIsOpen ? '/images/mobile/close.svg' : '/images/mobile/open.svg'"
-          [alt]="menuIsOpen ? 'Fermer le menu' : 'Ouvrir le menu'"
-        />
-      </button>
-    </div>
-
-    <!-- Menu Mobile -->
-    <ul
-      id="mobile-menu"
-      class="absolute inset-x-0 top-0 bg-primary text-text text-center transform transition-transform duration-300 md:hidden"
-      [ngClass]="menuIsOpen ? 'translate-y-0' : '-translate-y-full'"
+    <!-- Bouton menu hamburger pour mobile -->
+    <button
+      class="flex md:hidden focus:outline-none z-50"
+      aria-label="Ouvrir/fermer le menu"
+      (click)="toggleMenu()"
     >
-      <li class="p-4 flex items-center justify-center space-x-4">
-        <a routerLink="/home#about" routerLinkActive="font-bold" (click)="toggleMenu()">À propos</a>
-      </li>
-      <li class="p-4 flex items-center justify-center space-x-4">
-        <a routerLink="/home#projects" routerLinkActive="font-bold" (click)="toggleMenu()"
-          >Projets</a
-        >
-      </li>
-      <li class="p-4 flex items-center justify-center space-x-4">
-        <a routerLink="/home#contact" routerLinkActive="font-bold" (click)="toggleMenu()"
-          >Contact</a
-        >
-      </li>
-      <li class="p-4 flex items-center justify-center space-x-4">
-        <a routerLink="/settings" routerLinkActive="font-bold" (click)="toggleMenu()">Settings</a>
-      </li>
-    </ul>
+      <img
+        class="w-6 h-6"
+        height="24"
+        width="24"
+        [ngSrc]="menuIsOpen ? '/images/mobile/close.svg' : '/images/mobile/open.svg'"
+        [alt]="menuIsOpen ? 'Fermer le menu' : 'Ouvrir le menu'"
+      />
+    </button>
   </div>
+
+  <!-- Menu Mobile -->
+  <ul
+    id="mobile-menu"
+    class="absolute inset-x-0 top-0 bg-primary text-white text-center transform transition-transform duration-300 md:hidden"
+    [ngClass]="menuIsOpen ? 'translate-y-0' : '-translate-y-full'"
+  >
+    <li class="p-4">
+      <a
+        routerLink="/home#about"
+        routerLinkActive="font-bold"
+        class="hover:text-text hover:scale-105 hover:invert transition-all duration-300"
+        (click)="toggleMenu()"
+        >À propos</a
+      >
+    </li>
+    <li class="p-4">
+      <a
+        routerLink="/home#projects"
+        routerLinkActive="font-bold"
+        class="hover:text-text hover:scale-105 hover:invert transition-all duration-300"
+        (click)="toggleMenu()"
+        >Projets</a
+      >
+    </li>
+    <li class="p-4">
+      <a
+        routerLink="/home#contact"
+        routerLinkActive="font-bold"
+        class="hover:text-text hover:scale-105 hover:invert transition-all duration-300"
+        (click)="toggleMenu()"
+        >Contact</a
+      >
+    </li>
+    <li class="p-4">
+      <a
+        routerLink="/settings"
+        routerLinkActive="font-bold"
+        class="hover:text-text hover:scale-105 hover:invert transition-all duration-300"
+        (click)="toggleMenu()"
+        >Settings</a
+      >
+    </li>
+  </ul>
 </nav>
