@@ -1,4 +1,4 @@
-<nav class="text-md md:text-xl bg-primary dark:bg-primary text-white p-4 relative">
+<nav class="text-md md:text-xl bg-primary dark:bg-primary text-white p-4 fixed top-0 w-full z-50">
   <div class="container mx-auto flex items-center">
     <!-- Logo -->
     <a class="text-lg font-bold flex-1 text-left" routerLink="/">Mon Portfolio</a>
@@ -6,16 +6,28 @@
     <!-- Menu Desktop -->
     <ul class="hidden md:flex flex-1 justify-center gap-x-8">
       <li>
-        <a routerLink="/home#about" routerLinkActive="font-bold"
-           class="hover:text-text hover:scale-105 transition-all duration-300">À propos</a>
+        <a
+          routerLink="/home#about"
+          routerLinkActive="font-bold"
+          class="hover:text-text hover:scale-105 transition-all duration-300"
+          >À propos</a
+        >
       </li>
       <li>
-        <a routerLink="/home#projects" routerLinkActive="font-bold"
-           class="hover:text-text hover:scale-105 transition-all duration-300">Projets</a>
+        <a
+          routerLink="/home#projects"
+          routerLinkActive="font-bold"
+          class="hover:text-text hover:scale-105 transition-all duration-300"
+          >Projets</a
+        >
       </li>
       <li>
-        <a routerLink="/home#contact" routerLinkActive="font-bold"
-           class="hover:text-text hover:scale-105 transition-all duration-300">Contact</a>
+        <a
+          routerLink="/home#contact"
+          routerLinkActive="font-bold"
+          class="hover:text-text hover:scale-105 transition-all duration-300"
+          >Contact</a
+        >
       </li>
     </ul>
 
@@ -95,10 +107,14 @@
         <a routerLink="/home#about" routerLinkActive="font-bold" (click)="toggleMenu()">À propos</a>
       </li>
       <li class="p-4 flex items-center justify-center space-x-4">
-        <a routerLink="/home#projects" routerLinkActive="font-bold" (click)="toggleMenu()">Projets</a>
+        <a routerLink="/home#projects" routerLinkActive="font-bold" (click)="toggleMenu()"
+          >Projets</a
+        >
       </li>
       <li class="p-4 flex items-center justify-center space-x-4">
-        <a routerLink="/home#contact" routerLinkActive="font-bold" (click)="toggleMenu()">Contact</a>
+        <a routerLink="/home#contact" routerLinkActive="font-bold" (click)="toggleMenu()"
+          >Contact</a
+        >
       </li>
       <li class="p-4 flex items-center justify-center space-x-4">
         <a routerLink="/settings" routerLinkActive="font-bold" (click)="toggleMenu()">Settings</a>
