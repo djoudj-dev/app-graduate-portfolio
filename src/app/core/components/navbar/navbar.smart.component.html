@@ -1,80 +1,89 @@
-<nav class="bg-primary dark:bg-primary text-white p-4 relative">
-  <div class="container mx-auto flex justify-between items-center">
+<nav class="text-md md:text-xl bg-primary dark:bg-primary text-white p-4 relative">
+  <div class="container mx-auto flex items-center">
     <!-- Logo -->
-    <a class="text-lg font-bold" routerLink="/">Mon Portfolio</a>
+    <a class="text-lg font-bold flex-1 text-left" routerLink="/">Mon Portfolio</a>
 
     <!-- Menu Desktop -->
-    <ul class="hidden md:flex flex-grow justify-center space-x-4">
+    <ul class="hidden md:flex flex-1 justify-center gap-x-8">
       <li>
-        <a
-          routerLink="/home#about"
-          routerLinkActive="font-bold"
-          class="hover:text-text hover:scale-105 transition-all duration-300"
-          >À propos</a
-        >
+        <a routerLink="/home#about" routerLinkActive="font-bold"
+           class="hover:text-text hover:scale-105 transition-all duration-300">À propos</a>
       </li>
       <li>
-        <a
-          routerLink="/home#projects"
-          routerLinkActive="font-bold"
-          class="hover:text-text hover:scale-105 transition-all duration-300"
-          >Projets</a
-        >
+        <a routerLink="/home#projects" routerLinkActive="font-bold"
+           class="hover:text-text hover:scale-105 transition-all duration-300">Projets</a>
       </li>
       <li>
-        <a
-          routerLink="/home#contact"
-          routerLinkActive="font-bold"
-          class="hover:text-text hover:scale-105 transition-all duration-300"
-          >Contact</a
-        >
+        <a routerLink="/home#contact" routerLinkActive="font-bold"
+           class="hover:text-text hover:scale-105 transition-all duration-300">Contact</a>
       </li>
     </ul>
 
-    <!-- Bouton pour le DarkMode -->
-    <button
-      class="hidden md:flex items-center ml-4 focus:outline-none hover:scale-105 transition-all duration-300"
-      aria-label="DarkMode"
-      (click)="toggleDarkMode()"
-    >
-      <img
-        class="w-6 h-6 transition-all duration-300 hover:invert hover:brightness-125"
-        height="24"
-        width="24"
-        alt="DarkMode"
-        [ngSrc]="darkMode ? '/images/mobile/light.svg' : '/images/mobile/moon.svg'"
-      />
-    </button>
+    <!-- Zone boutons DarkMode + Settings en Desktop -->
+    <div class="hidden md:flex flex-1 justify-end items-center gap-x-4">
+      <!-- Bouton DarkMode -->
+      <button
+        class="focus:outline-none hover:scale-105 transition-all duration-300"
+        aria-label="DarkMode"
+        (click)="toggleDarkMode()"
+      >
+        <img
+          class="w-6 h-6 transition-all duration-300 hover:invert hover:brightness-125"
+          height="24"
+          width="24"
+          alt="DarkMode"
+          [ngSrc]="darkMode ? '/images/mobile/light.svg' : '/images/mobile/moon.svg'"
+        />
+      </button>
 
-    <!-- Bouton Settings pour Desktop -->
-    <a
-      routerLink="/settings"
-      class="hidden md:flex items-center ml-4 focus:outline-none hover:scale-105 transition-all duration-300"
-      aria-label="Paramètres"
-    >
-      <img
-        ngSrc="/images/mobile/settings.svg"
-        alt="Settings"
-        class="w-6 h-6 transition-all duration-300 hover:invert hover:brightness-125"
-        height="24"
-        width="24"
-      />
-    </a>
+      <!-- Bouton Settings -->
+      <a
+        routerLink="/settings"
+        class="focus:outline-none hover:scale-105 transition-all duration-300"
+        aria-label="Paramètres"
+      >
+        <img
+          ngSrc="/images/mobile/settings.svg"
+          alt="Settings"
+          class="w-6 h-6 transition-all duration-300 hover:invert hover:brightness-125"
+          height="24"
+          width="24"
+        />
+      </a>
+    </div>
 
-    <!-- Menu Hamburger (mobile) -->
-    <button
-      class="block md:hidden focus:outline-none z-50"
-      aria-label="Ouvrir/fermer le menu"
-      (click)="toggleMenu()"
-    >
-      <img
-        class="w-6 h-6"
-        height="24"
-        width="24"
-        [ngSrc]="menuIsOpen ? '/images/mobile/close.svg' : '/images/mobile/open.svg'"
-        [alt]="menuIsOpen ? 'Fermer le menu' : 'Ouvrir le menu'"
-      />
-    </button>
+    <!-- Zone boutons DarkMode + Menu Hamburger en Mobile -->
+    <div class="flex items-center gap-x-4 md:hidden order-last">
+      <!-- Bouton DarkMode -->
+      <button
+        class="focus:outline-none hover:scale-105 transition-all duration-300"
+        aria-label="DarkMode"
+        (click)="toggleDarkMode()"
+      >
+        <img
+          class="w-6 h-6 transition-all duration-300 hover:invert hover:brightness-125"
+          height="24"
+          width="24"
+          alt="DarkMode"
+          [ngSrc]="darkMode ? '/images/mobile/light.svg' : '/images/mobile/moon.svg'"
+        />
+      </button>
+
+      <!-- Menu Hamburger -->
+      <button
+        class="focus:outline-none z-50"
+        aria-label="Ouvrir/fermer le menu"
+        (click)="toggleMenu()"
+      >
+        <img
+          class="w-6 h-6"
+          height="24"
+          width="24"
+          [ngSrc]="menuIsOpen ? '/images/mobile/close.svg' : '/images/mobile/open.svg'"
+          [alt]="menuIsOpen ? 'Fermer le menu' : 'Ouvrir le menu'"
+        />
+      </button>
+    </div>
 
     <!-- Menu Mobile -->
     <ul
@@ -86,16 +95,11 @@
         <a routerLink="/home#about" routerLinkActive="font-bold" (click)="toggleMenu()">À propos</a>
       </li>
       <li class="p-4 flex items-center justify-center space-x-4">
-        <a routerLink="/home#projects" routerLinkActive="font-bold" (click)="toggleMenu()"
-          >Projets</a
-        >
+        <a routerLink="/home#projects" routerLinkActive="font-bold" (click)="toggleMenu()">Projets</a>
       </li>
       <li class="p-4 flex items-center justify-center space-x-4">
-        <a routerLink="/home#contact" routerLinkActive="font-bold" (click)="toggleMenu()"
-          >Contact</a
-        >
+        <a routerLink="/home#contact" routerLinkActive="font-bold" (click)="toggleMenu()">Contact</a>
       </li>
-      <!-- Settings pour le menu mobile -->
       <li class="p-4 flex items-center justify-center space-x-4">
         <a routerLink="/settings" routerLinkActive="font-bold" (click)="toggleMenu()">Settings</a>
       </li>
