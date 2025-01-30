@@ -1,9 +1,12 @@
 <nav
-  class="text-base sm:text-base md:text-xl bg-primary text-white shadow-xs shadow-secondary p-2 fixed top-0 w-full z-50"
+  class="text-base sm:text-base md:text-2xl bg-primary text-white shadow-xs shadow-secondary p-2 fixed top-0 w-full z-50"
 >
   <div class="container mx-auto flex items-center justify-between">
     <!-- Logo -->
-    <a class="text-lg font-bold flex-none" routerLink="/">Mon Portfolio</a>
+    <a class="text-2xl font-bold flex-none flex items-center gap-2" routerLink="/">
+      <img class="w-12 h-12" height="24" width="24" alt="Logo" ngSrc="/images/navbar/code.svg" />
+      djoudj.dev
+    </a>
 
     <!-- Menu Desktop -->
     <ul class="hidden md:flex flex-none justify-center gap-x-4">
@@ -45,7 +48,7 @@
     <div class="hidden md:flex flex-none gap-x-4">
       <a class="focus:outline-none hover:scale-105 transition-all duration-300" aria-label="Appel">
         <img
-          class="w-6 h-6 transition-all duration-300 hover:invert hover:brightness-125"
+          class="w-8 h-8 transition-all duration-300 hover:invert hover:brightness-125"
           height="24"
           width="24"
           alt="Appel"
@@ -59,7 +62,7 @@
         (click)="toggleDarkMode()"
       >
         <img
-          class="w-6 h-6 transition-all duration-300 hover:invert hover:brightness-125"
+          class="w-8 h-8 transition-all duration-300 hover:invert hover:brightness-125"
           height="24"
           width="24"
           alt="DarkMode"
@@ -74,7 +77,7 @@
         <img
           ngSrc="/images/mobile/settings.svg"
           alt="Settings"
-          class="w-6 h-6 transition-all duration-300 hover:invert hover:brightness-125"
+          class="w-8 h-8 transition-all duration-300 hover:invert hover:brightness-125"
           height="24"
           width="24"
         />
@@ -110,6 +113,15 @@
         class="hover:text-text hover:scale-105 hover:invert transition-all duration-300"
         (click)="toggleMenu()"
         >À propos</a
+      >
+    </li>
+    <li class="p-4">
+      <a
+        routerLink="/home#skills"
+        routerLinkActive="font-bold"
+        class="hover:text-text hover:scale-105 hover:invert transition-all duration-300"
+        (click)="toggleMenu()"
+        >Skills</a
       >
     </li>
     <li class="p-4">
