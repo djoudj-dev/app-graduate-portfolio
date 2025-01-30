@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Noto%20Sans%20Tamil%20Supplement:700|Noto%20Sans%20Tamil%20Supplement:400');
 
 @theme {
+  /* Mode clair */
   --color-text: oklch(15.83% 0.003 248.00);
   --color-background: oklch(96.95% 0.005 258.32);
   --color-primary: oklch(60.52% 0.091 245.76);
@@ -9,4 +10,13 @@
   --color-accent: oklch(70.89% 0.118 245.48);
 
   --font-display: "Noto Sans Tamil Supplement", "sans-serif";
+}
+
+.dark {
+  /* Mode sombre */
+  --color-text: oklch(96.07% 0.002 247.84);
+  --color-background: oklch(14.38% 0.007 256.88);
+  --color-primary: oklch(58.32% 0.092 246.90);
+  --color-secondary: oklch(41.09% 0.079 246.24);
+  --color-accent: oklch(49.46% 0.122 248.52);
 }
