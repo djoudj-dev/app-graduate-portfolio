@@ -1,22 +1,26 @@
-@use "tailwindcss";
+@use 'tailwindcss';
 @import url('https://fonts.googleapis.com/css?family=Noto%20Sans%20Tamil%20Supplement:700|Noto%20Sans%20Tamil%20Supplement:400');
 
 @theme {
   /* Mode clair */
-  --color-text: oklch(15.83% 0.003 248.00);
+  --color-text: oklch(15.83% 0.003 248);
   --color-background: oklch(96.95% 0.005 258.32);
-  --color-primary: oklch(64.60% 0.142 253.92);
+  --color-primary: oklch(64.6% 0.142 253.92);
   --color-secondary: oklch(76.73% 0.073 244.42);
   --color-accent: oklch(70.89% 0.118 245.48);
 
-  --font-display: "Noto Sans Tamil Supplement", "sans-serif";
+  --font-display: 'Noto Sans Tamil Supplement', 'sans-serif';
+
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-duration: 300ms;
+  --transition-hover-scale: 1.05;
 }
 
 .dark {
-  /* Mode sombre */
-  --color-text: oklch(100.00% 0.000 89.88);
-  --color-background: oklch(36.77% 0.000 89.88);
-  --color-primary: oklch(36.77% 0.000 89.88);
-  --color-secondary: oklch(73.48% 0.000 89.88);
-  --color-accent: oklch(45.59% 0.311 264.11);
+  /* Mode sombre style GitHub */
+  --color-text: oklch(95% 0.005 250); /* #c9d1d9 - Texte GitHub */
+  --color-background: oklch(18% 0.01 250); /* #0d1117 - Fond GitHub */
+  --color-primary: oklch(35% 0.1 250); /* #21262d - Primaire GitHub */
+  --color-secondary: oklch(25% 0.05 250); /* #161b22 - Secondaire GitHub */
+  --color-accent: oklch(55% 0.15 250); /* #58a6ff - Accent GitHub */
 }
