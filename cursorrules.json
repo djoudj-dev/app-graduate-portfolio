@@ -1,0 +1,147 @@
+{
+  "commit_conventions": {
+    "format": {
+      "structure": "type(scope): description",
+      "max_subject_length": 50,
+      "require_blank_line_after_subject": true,
+      "language": "french"
+    },
+    "types": {
+      "feat": "Nouvelle fonctionnalité",
+      "fix": "Correction de bug",
+      "refactor": "Refactorisation du code",
+      "chore": "Tâche de maintenance",
+      "hotfix": "Correction urgente",
+      "release": "Publication de version",
+      "update": "Mise à jour",
+      "dependencies": "Mise à jour des dépendances"
+    },
+    "message_rules": [
+      "Commencer par une ligne courte et impérative",
+      "Expliquer le pourquoi et non le comment",
+      "Utiliser des tirets (-) pour lister les détails",
+      "Adopter un style professionnel et précis"
+    ],
+    "examples": [
+      "feat(auth): ajouter l'authentification OAuth2",
+      "fix(sidebar): corriger l'affichage sur mobile",
+      "hotfix(api): résoudre l'erreur 500 critique"
+    ]
+  },
+  "angular_19": {
+    "core_features": {
+      "directives": {
+        "use_new_syntax": true,
+        "preferred": ["@if", "@for", "@switch"],
+        "deprecated": ["*ngIf", "*ngFor"]
+      },
+      "reactivity": {
+        "use_signals": true,
+        "preferred_apis": ["signal()", "computed()", "effect()"],
+        "avoid": "excessive RxJS usage"
+      },
+      "components": {
+        "type": "standalone",
+        "change_detection": "OnPush",
+        "prefer_signals": true,
+        "patterns": ["dumb", "dumb-dumb", "smart"]
+      }
+    },
+    "performance": {
+      "hydration": {
+        "enabled": true,
+        "incremental": true
+      },
+      "loading": {
+        "use_defer": true,
+        "preload_critical": true
+      },
+      "animations": {
+        "use_view_transitions": true
+      }
+    }
+  },
+  "typescript": {
+    "strict_mode": true,
+    "best_practices": {
+      "types": {
+        "prefer": ["unknown", "Readonly<T>", "Record<K,V>"],
+        "avoid": "any",
+        "advanced": ["satisfies", "as const", "readonly class properties"]
+      },
+      "immutability": {
+        "use_const": true,
+        "readonly_properties": true
+      },
+      "error_handling": {
+        "use_custom_errors": true,
+        "use_result_types": true
+      }
+    }
+  },
+  "backend": {
+    "nestjs": {
+      "configuration": {
+        "use_nestjs_config": true,
+        "validation_library": "zod"
+      },
+      "architecture": "CQRS",
+      "error_handling": {
+        "use_exception_filters": true,
+        "custom_error_classes": true
+      }
+    },
+    "springboot": {
+      "dto": "use_records",
+      "threads": "virtual_threads",
+      "architecture": "hexagonal"
+    }
+  },
+  "styling": {
+    "tailwind_v4": {
+      "theme_definition": {
+        "use_at_theme": true,
+        "avoid_config_file": true
+      },
+      "features": {
+        "container_queries": true,
+        "color_mixing": true,
+        "group_modifiers": ["group-has", "group-not-has"]
+      },
+      "transitions": {
+        "use_theme_variables": true,
+        "properties": ["ease-in-out", "duration"]
+      }
+    },
+    "animations": {
+      "use_view_transitions": true
+    }
+  },
+  "code_quality": {
+    "testing": {
+      "framework": "jest",
+      "coverage_minimum": 80,
+      "types": ["unit", "e2e"]
+    },
+    "principles": {
+      "follow": ["SOLID", "DRY", "LDD"],
+      "architecture": "feature-based"
+    }
+  },
+  "component_communication": {
+    "inputs": {
+      "use_new_syntax": true,
+      "features": ["default_values", "aliases", "transformers"]
+    },
+    "outputs": {
+      "use_signal_based": true,
+      "prefer": "output()",
+      "support": ["outputFromObservable()", "aliases"]
+    },
+    "bindings": {
+      "class": ["[class]", "[class.name]"],
+      "style": ["[style]", "[style.property]"],
+      "optimization": "use conditions for dynamic styles"
+    }
+  }
+}

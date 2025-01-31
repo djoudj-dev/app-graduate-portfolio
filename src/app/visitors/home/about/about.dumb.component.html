@@ -17,11 +17,25 @@
     <p class="text-gray-300 text-sm md:text-2xl pb-4">
       Concepteur & Développeur d'Applications Web | Angular & Node.js
     </p>
-    <p class="text-white text-sm md:text-lg">
+    <p class="text-white text-sm md:text-lg mb-4">
       Développeur web spécialisé en Angular et Node.js, je conçois et développe des solutions
       performantes,<br />
       évolutives et adaptées aux besoins spécifiques de chaque projet.
     </p>
+    <div class="flex space-x-4">
+      <app-button
+        variant="secondary"
+        [title]="'Télécharger mon CV'"
+        [type]="'button'"
+        [img]="'/images/about/download.svg'"
+      />
+      <app-button
+        variant="accent"
+        [title]="'Mon GitHub'"
+        [type]="'button'"
+        [img]="'/images/about/github.svg'"
+      />
+    </div>
   </div>
 </div>
 <div class="container flex flex-col px-8 justify-center items-center mx-auto text-center mt-8">
