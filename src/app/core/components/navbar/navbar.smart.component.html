@@ -1,7 +1,7 @@
 <nav
   class="text-base sm:text-base md:text-2xl bg-primary text-white shadow-xs shadow-secondary p-2 fixed top-0 w-full z-50"
 >
-  <div class="container mx-auto flex items-center justify-between">
+  <div class="container mx-auto flex items-center justify-between h-16">
     <!-- Logo -->
     <a class="text-2xl font-bold flex-none flex items-center gap-2" routerLink="/">
       <img class="w-12 h-12" height="24" width="24" alt="Logo" ngSrc="/images/navbar/code.svg" />
@@ -14,7 +14,7 @@
         <a
           routerLink="/home#about"
           routerLinkActive="font-bold"
-          class="hover:text-text hover:scale-105 hover:invert transition-all duration-300"
+          class="relative py-2 hover:text-text transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-white after:left-0 after:bottom-0 after:transition-all after:duration-300 hover:after:w-full"
           >À propos</a
         >
       </li>
@@ -22,7 +22,7 @@
         <a
           routerLink="/home#skills"
           routerLinkActive="font-bold"
-          class="hover:text-text hover:scale-105 hover:invert transition-all duration-300"
+          class="relative py-2 hover:text-text transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-white after:left-0 after:bottom-0 after:transition-all after:duration-300 hover:after:w-full"
           >Skills</a
         >
       </li>
@@ -30,7 +30,7 @@
         <a
           routerLink="/home#projects"
           routerLinkActive="font-bold"
-          class="hover:text-text hover:scale-105 hover:invert transition-all duration-300"
+          class="relative py-2 hover:text-text transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-white after:left-0 after:bottom-0 after:transition-all after:duration-300 hover:after:w-full"
           >Projets</a
         >
       </li>
@@ -38,26 +38,25 @@
         <a
           routerLink="/home#contact"
           routerLinkActive="font-bold"
-          class="hover:text-text hover:scale-105 hover:invert transition-all duration-300"
+          class="relative py-2 hover:text-text transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-white after:left-0 after:bottom-0 after:transition-all after:duration-300 hover:after:w-full"
           >Contact</a
         >
       </li>
     </ul>
 
-    <!-- Zone boutons DarkMode + Settings (Desktop uniquement) -->
-    <div class="hidden md:flex flex-none gap-x-4">
-      <a class="focus:outline-none hover:scale-105 transition-all duration-300" aria-label="Appel">
-        <img
-          class="w-8 h-8 transition-all duration-300 hover:invert hover:brightness-125"
-          height="24"
-          width="24"
-          alt="Appel"
-          ngSrc="/images/mobile/phone.svg"
-        />
-      </a>
+    <!-- Zone boutons (Desktop uniquement) -->
+    <div class="hidden md:flex items-center gap-x-4 mb-4">
+      <app-button
+        variant="accent"
+        [title]="'Réservez votre appel'"
+        [type]="'button'"
+        [img]="'/images/mobile/phone.svg'"
+        (click)="onCallClick()"
+        class="!h-8 !px-3 flex items-center"
+      />
 
       <button
-        class="focus:outline-none hover:scale-105 transition-all duration-300"
+        class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 mt-4"
         aria-label="DarkMode"
         (click)="toggleDarkMode()"
       >
@@ -69,9 +68,10 @@
           [ngSrc]="darkMode ? '/images/mobile/light.svg' : '/images/mobile/moon.svg'"
         />
       </button>
+
       <a
         routerLink="/settings"
-        class="focus:outline-none hover:scale-105 transition-all duration-300"
+        class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 mt-4"
         aria-label="Paramètres"
       >
         <img
