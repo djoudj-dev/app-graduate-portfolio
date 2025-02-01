@@ -1,1 +1,112 @@
-<p>contact works!</p>
+<div class="container mx-auto px-4 mt-12 relative">
+  <!-- Fond avec gradient -->
+  <div
+    class="absolute inset-0 bg-gradient-to-r from-primary/10 via-[color-mix(in_oklch,var(--color-tertiary)_5%,transparent)] to-primary/10 blur-2xl -z-10 animate-pulse"
+  ></div>
+
+  <h2 class="relative text-4xl font-bold text-center mb-12 group text-text">
+    <span class="relative inline-block">
+      Me Contacter
+      <span
+        class="absolute -bottom-2 left-0 w-full h-1 bg-tertiary/60 transform origin-left transition-transform duration-[--transition-duration] ease-[--ease-in-out] group-hover:scale-x-100 scale-x-50"
+      ></span>
+      <span class="absolute -top-4 -right-4 w-12 h-12 rounded-full bg-primary/40 blur-sm"></span>
+    </span>
+  </h2>
+
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="max-w-2xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <!-- Nom -->
+      <div class="relative group">
+        <input
+          type="text"
+          formControlName="name"
+          class="w-full px-4 py-3 rounded-lg bg-background/90 backdrop-blur-md border-2 border-tertiary/20 focus:border-tertiary/60 outline-none transition-all duration-300 text-text"
+          [ngClass]="{ 'border-red-500': isFieldInvalid('name') }"
+          required
+        />
+        <label
+          class="absolute left-4 top-3 text-text/50 transition-all duration-300 transform group-focus-within:-translate-y-[26px] group-focus-within:text-sm"
+          [ngClass]="{ '!-translate-y-[26px] !text-sm': contactForm.get('name')?.value }"
+        >
+          Votre nom
+        </label>
+        @if (isFieldInvalid('name')) {
+          <span class="text-red-500 text-sm mt-1">Le nom est requis</span>
+        }
+      </div>
+
+      <!-- Email -->
+      <div class="relative group">
+        <input
+          type="email"
+          formControlName="email"
+          class="w-full px-4 py-3 rounded-lg bg-background/90 backdrop-blur-md border-2 border-tertiary/20 focus:border-tertiary/60 outline-none transition-all duration-300 text-text"
+          [ngClass]="{ 'border-red-500': isFieldInvalid('email') }"
+          required
+        />
+        <label
+          class="absolute left-4 top-3 text-text/50 transition-all duration-300 transform group-focus-within:-translate-y-[26px] group-focus-within:text-sm"
+          [ngClass]="{ '!-translate-y-[26px] !text-sm': contactForm.get('email')?.value }"
+        >
+          Votre email
+        </label>
+        @if (isFieldInvalid('email')) {
+          <span class="text-red-500 text-sm mt-1">Email invalide</span>
+        }
+      </div>
+    </div>
+
+    <!-- Message -->
+    <div class="relative group mb-6">
+      <textarea
+        formControlName="message"
+        rows="6"
+        class="w-full px-4 py-3 rounded-lg bg-background/90 backdrop-blur-md border-2 border-tertiary/20 focus:border-tertiary/60 outline-none transition-all duration-300 text-text resize-none"
+        [ngClass]="{ 'border-red-500': isFieldInvalid('message') }"
+        required
+      ></textarea>
+      <label
+        class="absolute left-4 top-3 text-text/50 transition-all duration-300 transform group-focus-within:-translate-y-[26px] group-focus-within:text-sm"
+        [ngClass]="{ '!-translate-y-[26px] !text-sm': contactForm.get('message')?.value }"
+      >
+        Votre message
+      </label>
+      @if (isFieldInvalid('message')) {
+        <span class="text-red-500 text-sm mt-1">Le message est requis</span>
+      }
+    </div>
+
+    <!-- Bouton d'envoi -->
+    <div class="text-center">
+      <button
+        type="submit"
+        [disabled]="contactForm.invalid || isSubmitting"
+        class="px-8 py-3 bg-tertiary text-text border-1 border-primary font-semibold rounded-lg transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:transform-none"
+      >
+        @if (isSubmitting) {
+          <span class="flex items-center gap-2">
+            <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24">
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+              ></path>
+            </svg>
+            Envoi en cours...
+          </span>
+        } @else {
+          Envoyer le message
+        }
+      </button>
+    </div>
+  </form>
+</div>
