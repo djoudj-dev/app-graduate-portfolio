@@ -8,6 +8,8 @@
   --color-primary: oklch(64.6% 0.142 253.92);
   --color-secondary: oklch(76.73% 0.073 244.42);
   --color-accent: oklch(70.89% 0.118 245.48);
+  /* Couleur dorée clinquante */
+  --color-tertiary: oklch(75% 0.2 80); /* Une teinte dorée/orangée vibrante */
 
   --font-display: 'Noto Sans Tamil Supplement', 'sans-serif';
 
@@ -23,4 +25,6 @@
   --color-primary: oklch(35% 0.1 250); /* #21262d - Primaire GitHub */
   --color-secondary: oklch(25% 0.05 250); /* #161b22 - Secondaire GitHub */
   --color-accent: oklch(55% 0.15 250); /* #58a6ff - Accent GitHub */
+  /* Version dorée plus brillante pour le mode sombre */
+  --color-tertiary: oklch(80% 0.25 85); /* Plus lumineux pour ressortir dans le mode sombre */
 }
