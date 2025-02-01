@@ -1,1 +1,135 @@
-<p>projects works!</p>
+<div class="container mx-auto px-4 mt-12 relative">
+  <!-- Fond avec gradient utilisant color-mixing -->
+  <div
+    class="absolute inset-0 bg-gradient-to-r from-primary/10 via-[color-mix(in_oklch,var(--color-tertiary)_5%,transparent)] to-primary/10 blur-2xl -z-10 animate-pulse"
+  ></div>
+
+  <h2 class="relative text-4xl font-bold text-center mb-6 group text-text">
+    <span class="relative inline-block">
+      Mes Projets
+      <span
+        class="absolute -bottom-2 left-0 w-full h-1 bg-tertiary/60 transform origin-left transition-transform duration-[--transition-duration] ease-[--ease-in-out] group-hover:scale-x-100 scale-x-50"
+      ></span>
+      <span class="absolute -top-4 -right-4 w-12 h-12 rounded-full bg-primary/40 blur-sm"></span>
+    </span>
+  </h2>
+
+  <!-- Barre de recherche -->
+  <div class="max-w-xl mx-auto mb-12 relative">
+    <input
+      type="text"
+      [formControl]="searchControl"
+      placeholder="Rechercher un projet..."
+      class="w-full px-4 py-2 rounded-lg bg-background/90 backdrop-blur-md border-2 border-tertiary/20 focus:border-tertiary/60 outline-none transition-all duration-300 text-text placeholder:text-text/50"
+    />
+    <svg
+      class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-tertiary/60"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+      />
+    </svg>
+  </div>
+
+  <!-- Grille de projets avec message "aucun résultat" -->
+  @if (filteredProjects().length > 0) {
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      @for (project of filteredProjects(); track project.id) {
+        <div
+          class="group flex flex-col md:flex-row gap-6 p-6 rounded-lg bg-background/90 backdrop-blur-md border-2 border-tertiary/20 shadow-lg transform hover:-translate-y-1 transition-all duration-[--transition-duration] ease-[--ease-in-out]"
+        >
+          <!-- Image du projet (côté gauche) -->
+          <div class="w-full md:w-2/5 relative aspect-[4/3] rounded-lg overflow-hidden">
+            <img
+              [ngSrc]="project.image"
+              [alt]="project.title"
+              width="400"
+              height="300"
+              class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            ></div>
+          </div>
+
+          <!-- Contenu (côté droit) -->
+          <div class="w-full md:w-3/5 flex flex-col">
+            <h3 class="text-xl font-bold text-text mb-2">{{ project.title }}</h3>
+            <p class="text-text/70 mb-4">{{ project.description }}</p>
+
+            <!-- Technologies utilisées -->
+            <div class="flex flex-wrap gap-2 mb-4">
+              @for (tech of project.technologies; track tech) {
+                <span class="px-3 py-1 text-sm rounded-full bg-tertiary/10 text-tertiary">
+                  {{ tech }}
+                </span>
+              }
+            </div>
+
+            <!-- Liens -->
+            <div class="flex gap-4 mt-auto">
+              @if (project.demoUrl) {
+                <a
+                  [href]="project.demoUrl"
+                  target="_blank"
+                  class="text-tertiary hover:text-text transition-colors duration-300 flex items-center gap-2"
+                >
+                  <img src="/images/projects/demo.svg" alt="" class="w-5 h-5" />
+                  Demo
+                </a>
+              }
+              @if (project.githubUrl) {
+                <a
+                  [href]="project.githubUrl"
+                  target="_blank"
+                  class="text-tertiary hover:text-text transition-colors duration-300 flex items-center gap-2"
+                >
+                  <img src="/images/projects/github.svg" alt="" class="w-5 h-5" />
+                  Code
+                </a>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="text-center py-12">
+      <svg
+        class="w-16 h-16 mx-auto text-tertiary/40 mb-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+      <h3 class="text-xl font-semibold text-text mb-2">Aucun projet trouvé</h3>
+      <p class="text-text/70">Essayez avec d'autres mots-clés ou technologies</p>
+      <button
+        (click)="clearSearch()"
+        class="mt-4 px-4 py-2 text-sm text-tertiary hover:text-text transition-colors duration-300 flex items-center gap-2 mx-auto"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+        Effacer la recherche
+      </button>
+    </div>
+  }
+</div>
