@@ -1,18 +1,25 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ButtonDumbComponent } from '../../../shared/components/button/button.dumb.component';
-
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, RouterLinkActive, NgOptimizedImage, NgClass, ButtonDumbComponent],
   templateUrl: './navbar.smart.component.html',
   styleUrl: './navbar.smart.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive, NgOptimizedImage, ButtonDumbComponent, NgClass]
 })
 export class NavbarSmartComponent {
   menuIsOpen = false;
   darkMode = false;
+
+  protected showCallButton = signal(true);
+  protected navigationItems = signal([
+    { href: '/about', label: 'À propos' },
+    { href: '/skills', label: 'Compétences' },
+    { href: '/projects', label: 'Projets' },
+    { href: '/contact', label: 'Contact' }
+  ]);
 
   constructor(private router: Router) {}
 
