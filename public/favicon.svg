@@ -1,0 +1,15 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" rx="8" fill="oklch(35% 0.1 250)" />
+  <text 
+    x="16" 
+    y="25" 
+    font-family="'Noto Sans Tamil Supplement', sans-serif" 
+    font-size="24" 
+    font-weight="900" 
+    fill="oklch(80% 0.25 85)" 
+    text-anchor="middle"
+    letter-spacing="-1"
+  >
+    D
+  </text>
+</svg>
