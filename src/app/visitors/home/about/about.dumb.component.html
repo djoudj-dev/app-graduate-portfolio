@@ -8,7 +8,7 @@
     priority
     width="400"
     height="400"
-    class="w-24 sm:w-32 md:w-40 lg:w-48 xl:w-56 h-auto rounded-full object-cover shadow-xs border-2 border-secondary"
+    class="w-48 sm:w-32 md:w-40 lg:w-48 xl:w-56 h-auto rounded-full object-cover shadow-xs border-2 border-secondary"
   />
 
   <!-- Informations -->
@@ -38,37 +38,69 @@
     </div>
   </div>
 </div>
-<div class="container max-w-4xl mx-auto mt-12 px-6 relative">
-  <!-- Fond avec gradient amélioré -->
+
+<div class="container mx-auto mt-12 px-6 relative">
+  <!-- Fond avec gradient -->
   <div
-    class="absolute inset-0 bg-gradient-to-r from-primary/10 via-tertiary/5 to-primary/10 blur-2xl -z-10 animate-pulse"
+    class="absolute inset-0 bg-gradient-to-r from-primary/10 via-[color-mix(in_oklch,var(--color-tertiary)_5%,transparent)] to-primary/10 blur-2xl -z-10 animate-pulse"
   ></div>
 
-  <!-- Blockquote redesigné -->
-  <blockquote
-    class="relative p-8 md:p-12 rounded-lg bg-background/90 backdrop-blur-md border-2 border-tertiary/20 shadow-lg transform hover:-translate-y-1 transition-all duration-300"
-  >
-    <!-- Icône de guillemets stylisée -->
-    <svg
-      class="absolute text-tertiary/20 w-16 h-16 -top-6 -left-6 transform -rotate-12 animate-pulse"
-      fill="currentColor"
-      viewBox="0 0 24 24"
+  <!-- Conteneur flex pour les cartes -->
+  <div class="flex flex-col md:flex-row gap-8">
+    <!-- Blockquote (3/4) -->
+    <blockquote
+      class="w-full md:w-3/4 relative p-8 md:p-12 rounded-lg bg-background/90 backdrop-blur-md border-2 border-tertiary/20 shadow-lg transform hover:-translate-y-1 transition-all duration-[--transition-duration] ease-[--ease-in-out]"
     >
-      <path
-        d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"
-      />
-    </svg>
+      <!-- Icône de guillemets stylisée -->
+      <svg
+        class="absolute text-tertiary/20 w-16 h-16 -top-6 -left-6 transform -rotate-12 animate-pulse"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"
+        />
+      </svg>
 
-    <!-- Texte avec style amélioré -->
-    <p class="text-lg md:text-xl lg:text-2xl text-text leading-relaxed relative z-10">
-      <span class="text-tertiary font-semibold">"</span>
-      {{ content().quote }}
-      <span class="text-tertiary font-semibold">"</span>
-    </p>
+      <!-- Texte avec style amélioré -->
+      <p class="text-lg md:text-xl lg:text-2xl text-text leading-relaxed relative z-10">
+        <span class="text-tertiary font-semibold">"</span>
+        {{ content().quote }}
+        <span class="text-tertiary font-semibold">"</span>
+      </p>
 
-    <!-- Signature ajoutée -->
-    <footer class="mt-4 text-right text-sm md:text-base text-text/70 italic">
-      - {{ content().quoteFooter }}
-    </footer>
-  </blockquote>
+      <!-- Signature -->
+      <footer class="mt-4 text-right text-sm md:text-base text-text/70 italic">
+        - {{ content().quoteFooter }}
+      </footer>
+    </blockquote>
+
+    <!-- Carte savoir-être (1/4) -->
+    <div
+      class="w-full md:w-1/4 relative p-8 md:p-12 rounded-lg bg-background/90 backdrop-blur-md border-2 border-tertiary/20 shadow-lg transform hover:-translate-y-1 transition-all duration-[--transition-duration] ease-[--ease-in-out]"
+    >
+      <svg
+        class="absolute text-tertiary/20 w-16 h-16 -top-6 -right-6 transform rotate-12 animate-pulse"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z M11 7h2v2h-2zm0 4h2v6h-2z"
+        />
+      </svg>
+
+      <h3 class="text-xl md:text-2xl font-semibold text-tertiary mb-4">
+        {{ content().softSkillsTitle }}
+      </h3>
+
+      <ul class="space-y-3">
+        @for (skill of content().softSkills; track skill) {
+          <li class="flex items-center text-text">
+            <span class="text-tertiary mr-2">•</span>
+            {{ skill }}
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
 </div>

@@ -5,6 +5,8 @@ export interface About {
     description: string;
     quote: string;
     quoteFooter: string;
+    softSkillsTitle: string;
+    softSkills: string[];
   };
   socialLinks: {
     cv: string;
