@@ -32,7 +32,7 @@ export class ButtonDumbComponent {
 
   getButtonClasses(): string {
     const baseClasses = `w-max text-lg px-4 py-2 mt-4
-                        border border-text rounded-md
+                        border-2 border-tertiary rounded-md
                         shadow-lg
                         transition-all duration-300 ease-in-out
                         hover:scale-105 hover:-translate-y-1
@@ -41,9 +41,9 @@ export class ButtonDumbComponent {
                         disabled:hover:scale-100 disabled:hover:translate-y-0`;
 
     const variantClasses = {
-      primary: 'bg-primary hover:bg-primary/80 shadow-primary/50',
-      secondary: 'bg-secondary hover:bg-secondary/80 shadow-secondary/50',
-      accent: 'bg-accent hover:bg-accent/80 shadow-accent/50'
+      primary: 'bg-primary hover:bg-primary/80 shadow-tertiary/50',
+      secondary: 'bg-secondary hover:bg-secondary/80 shadow-tertiary/50',
+      accent: 'bg-accent hover:bg-accent/80 shadow-tertiary/50'
     };
 
     return `${baseClasses} ${variantClasses[this.variant()]}`;
