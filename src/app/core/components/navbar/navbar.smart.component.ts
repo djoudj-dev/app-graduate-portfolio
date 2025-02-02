@@ -1,24 +1,30 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, signal, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ButtonDumbComponent } from '../../../shared/components/button/button.dumb.component';
+
+interface NavigationItem {
+  href: string;
+  label: string;
+}
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.smart.component.html',
   styleUrl: './navbar.smart.component.scss',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgOptimizedImage, ButtonDumbComponent, NgClass]
+  imports: [RouterLink, RouterLinkActive, NgOptimizedImage, NgClass, ButtonDumbComponent]
 })
 export class NavbarSmartComponent {
   menuIsOpen = false;
   darkMode = false;
 
   protected showCallButton = signal(true);
-  protected navigationItems = signal([
-    { href: '/about', label: 'À propos' },
-    { href: '/skills', label: 'Compétences' },
-    { href: '/projects', label: 'Projets' },
-    { href: '/contact', label: 'Contact' }
+  protected readonly navigationItems = signal<NavigationItem[]>([
+    { href: '/home#about', label: 'À propos' },
+    { href: '/home#skills', label: 'Skills' },
+    { href: '/home#projects', label: 'Projets' },
+    { href: '/home#contact', label: 'Contact' }
   ]);
 
   constructor(private router: Router) {}
@@ -39,5 +45,21 @@ export class NavbarSmartComponent {
 
   onCallClick() {
     this.router.navigate(['/home'], { fragment: 'contact' });
+  }
+
+  // Ajout du gestionnaire d'événements pour fermer le menu en cliquant en dehors
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent) {
+    const menu = document.getElementById('mobile-menu');
+    const hamburgerButton = document.querySelector('[aria-label="Ouvrir/fermer le menu"]');
+
+    if (
+      this.menuIsOpen &&
+      menu &&
+      !menu.contains(event.target as Node) &&
+      !hamburgerButton?.contains(event.target as Node)
+    ) {
+      this.menuIsOpen = false;
+    }
   }
 }
