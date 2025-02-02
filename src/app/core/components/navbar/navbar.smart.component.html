@@ -1,18 +1,23 @@
 <nav
-  class="text-base sm:text-base md:text-2xl bg-primary text-white shadow-xs shadow-secondary p-2 fixed top-0 w-full z-50"
+  class="text-base sm:text-lg md:text-2xl bg-primary text-white shadow-xs shadow-secondary p-2 fixed top-0 w-screen z-50 overflow-x-hidden"
 >
-  <div class="container mx-auto flex items-center justify-between h-16">
+  <div
+    class="w-full px-4 flex items-center justify-between min-h-[4rem] md:min-h-[4.5rem] max-w-screen-2xl mx-auto"
+  >
     <!-- Logo -->
-    <a class="text-2xl font-bold flex-none flex items-center gap-2" routerLink="/">
+    <a
+      class="text-lg sm:text-xl md:text-2xl font-bold flex-none flex items-center gap-2 truncate"
+      routerLink="/"
+    >
       <div class="flex items-center group">
         <img
-          class="w-12 h-12 transform transition-all duration-500 group-hover:rotate-180"
+          class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 transform transition-all duration-500 group-hover:rotate-180 flex-shrink-0"
           height="24"
           width="24"
           alt="Logo"
           ngSrc="/images/navbar/code.svg"
         />
-        <div class="flex items-baseline">
+        <div class="flex items-baseline truncate">
           <span>djoudj</span>
           <span class="text-tertiary">.</span>
           <span>dev</span>
@@ -21,142 +26,166 @@
     </a>
 
     <!-- Menu Desktop -->
-    <ul class="hidden md:flex flex-none justify-center gap-x-4">
-      <li>
-        <a
-          routerLink="/home#about"
-          routerLinkActive="font-bold"
-          class="relative py-2 hover:text-text transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-tertiary after:left-0 after:bottom-0 after:transition-all after:duration-300 hover:after:w-full"
-          >À propos</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/home#skills"
-          routerLinkActive="font-bold"
-          class="relative py-2 hover:text-text transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-tertiary after:left-0 after:bottom-0 after:transition-all after:duration-300 hover:after:w-full"
-          >Skills</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/home#projects"
-          routerLinkActive="font-bold"
-          class="relative py-2 hover:text-text transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-tertiary after:left-0 after:bottom-0 after:transition-all after:duration-300 hover:after:w-full"
-          >Projets</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/home#contact"
-          routerLinkActive="font-bold"
-          class="relative py-2 hover:text-text transition-all duration-300 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-tertiary after:left-0 after:bottom-0 after:transition-all after:duration-300 hover:after:w-full"
-          >Contact</a
-        >
-      </li>
+    <ul class="hidden md:flex items-center gap-x-8">
+      @for (item of navigationItems(); track item.href) {
+        <li class="group">
+          <a
+            routerLinkActive="font-bold"
+            class="text-xl font-bold text-white/80 hover:text-[#ffd700] transition-all duration-300 relative"
+            [routerLink]="item.href"
+          >
+            {{ item.label }}
+            <span
+              class="absolute -bottom-1 left-0 w-full h-0.5 bg-[#ffd700] transform origin-left transition-transform duration-300 scale-x-0 group-hover:scale-x-100"
+            ></span>
+          </a>
+        </li>
+      }
     </ul>
 
     <!-- Zone boutons (Desktop uniquement) -->
     <div class="hidden md:flex items-center gap-x-4 mb-4">
       <app-button
         variant="accent"
+        class="!h-8 !px-4 flex items-center hover:scale-105 transition-all duration-300 text-base"
         [title]="'Réservez votre appel'"
         [type]="'button'"
         [img]="'/images/mobile/phone.svg'"
         (click)="onCallClick()"
-        class="!h-8 !px-3 flex items-center"
       />
 
       <button
-        class="relative h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 mt-4 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-tertiary after:left-0 after:-bottom-2 after:transition-all after:duration-300 hover:after:w-full"
+        class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 group relative mt-2"
         aria-label="DarkMode"
         (click)="toggleDarkMode()"
       >
         <img
-          class="w-8 h-8 transition-all duration-300 hover:invert hover:brightness-125"
+          class="w-10 h-10 transition-all duration-300 hover:brightness-125 mt-2"
           height="24"
           width="24"
           alt="DarkMode"
           [ngSrc]="darkMode ? '/images/mobile/light.svg' : '/images/mobile/moon.svg'"
         />
+        <span
+          class="absolute -bottom-1 left-0 w-full h-0.5 bg-[#ffd700] transform origin-left transition-transform duration-300 scale-x-0 group-hover:scale-x-100"
+        ></span>
       </button>
 
       <a
-        class="relative h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 mt-4 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bg-tertiary after:left-0 after:-bottom-2 after:transition-all after:duration-300 hover:after:w-full"
+        class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 group relative mt-2"
         routerLink="/settings"
         aria-label="Paramètres"
       >
         <img
           ngSrc="/images/mobile/settings.svg"
           alt="Settings"
-          class="w-8 h-8 transition-all duration-300 hover:invert hover:brightness-125"
+          class="w-10 h-10 transition-all duration-300 hover:brightness-125 mt-2"
           height="24"
           width="24"
         />
+        <span
+          class="absolute -bottom-1 left-0 w-full h-0.5 bg-[#ffd700] transform origin-left transition-transform duration-300 scale-x-0 group-hover:scale-x-100"
+        ></span>
       </a>
     </div>
 
-    <!-- Bouton menu hamburger pour mobile -->
-    <button
-      class="flex md:hidden focus:outline-none z-50"
-      aria-label="Ouvrir/fermer le menu"
-      (click)="toggleMenu()"
-    >
-      <img
-        class="w-6 h-6"
-        height="24"
-        width="24"
-        [ngSrc]="menuIsOpen ? '/images/mobile/close.svg' : '/images/mobile/open.svg'"
-        [alt]="menuIsOpen ? 'Fermer le menu' : 'Ouvrir le menu'"
-      />
-    </button>
+    <!-- Icône DarkMode et menu hamburger -->
+    <div class="flex items-center gap-4">
+      <button
+        class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 relative"
+        aria-label="DarkMode"
+        (click)="toggleDarkMode()"
+      >
+        <img
+          class="w-8 h-8 transition-all duration-300 hover:brightness-125"
+          height="24"
+          width="24"
+          alt="DarkMode"
+          [ngSrc]="darkMode ? '/images/mobile/light.svg' : '/images/mobile/moon.svg'"
+        />
+      </button>
+      <button
+        class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 relative"
+        aria-label="Ouvrir/fermer le menu"
+        (click)="toggleMenu()"
+      >
+        <img
+          class="w-8 h-8"
+          height="24"
+          width="24"
+          [ngSrc]="menuIsOpen ? '/images/mobile/close.svg' : '/images/mobile/open.svg'"
+          [alt]="menuIsOpen ? 'Fermer le menu' : 'Ouvrir le menu'"
+        />
+      </button>
+    </div>
   </div>
 
   <!-- Menu Mobile -->
-  <ul
+  <div
     id="mobile-menu"
-    class="absolute inset-x-0 top-0 bg-primary text-white text-center transform transition-transform duration-300 md:hidden"
+    class="fixed inset-x-0 top-0 h-[60vh] w-screen bg-primary/95 backdrop-blur-md text-white text-center transform transition-transform duration-300 md:hidden pt-20 pb-8 overflow-y-auto"
     [ngClass]="menuIsOpen ? 'translate-y-0' : '-translate-y-full'"
+    (click)="$event.stopPropagation()"
   >
-    <!-- Gradient de fond similaire au footer -->
-    <div
-      class="absolute inset-0 bg-gradient-to-b from-primary via-[#4285f4] to-primary opacity-75"
-    ></div>
-
-    <!-- Contenu du menu avec position relative pour apparaître au-dessus du gradient -->
-    <div class="relative z-10">
-      @for (item of navigationItems(); track item.href) {
+    <div class="flex flex-col items-center justify-start h-full px-4">
+      <ul class="w-full max-w-sm space-y-2">
         <li class="p-4">
           <a
-            [routerLink]="item.href"
+            routerLink="/home#about"
             routerLinkActive="font-bold"
-            class="hover:text-tertiary hover:scale-105 transition-all duration-300"
+            class="block w-full text-lg hover:text-tertiary transition-all duration-300"
             (click)="toggleMenu()"
+            >À propos</a
           >
-            {{ item.label }}
-          </a>
         </li>
-      }
-      <li class="p-4">
-        <a
-          routerLink="/settings"
-          routerLinkActive="font-bold"
-          class="hover:text-tertiary hover:scale-105 transition-all duration-300"
-          (click)="toggleMenu()"
-        >
-          Settings
-        </a>
-      </li>
-      <li class="p-4">
-        <a
-          routerLink="/home"
-          routerLinkActive="font-bold"
-          class="hover:text-tertiary hover:scale-105 transition-all duration-300"
-          (click)="toggleMenu()"
-        >
-          Réservez votre appel
-        </a>
-      </li>
+        <li class="p-4">
+          <a
+            routerLink="/home#skills"
+            routerLinkActive="font-bold"
+            class="block w-full text-lg hover:text-tertiary transition-all duration-300"
+            (click)="toggleMenu()"
+            >Skills</a
+          >
+        </li>
+        <li class="p-4">
+          <a
+            routerLink="/home#projects"
+            routerLinkActive="font-bold"
+            class="block w-full text-lg hover:text-tertiary transition-all duration-300"
+            (click)="toggleMenu()"
+            >Projets</a
+          >
+        </li>
+        <li class="p-4">
+          <a
+            routerLink="/home#contact"
+            routerLinkActive="font-bold"
+            class="block w-full text-lg hover:text-tertiary transition-all duration-300"
+            (click)="toggleMenu()"
+            >Contact</a
+          >
+        </li>
+        <li class="p-4">
+          <a
+            routerLink="/settings"
+            routerLinkActive="font-bold"
+            class="block w-full text-lg hover:text-tertiary transition-all duration-300"
+            (click)="toggleMenu()"
+            >Settings</a
+          >
+        </li>
+      </ul>
+
+      <!-- Actions mobile -->
+      <div class="mt-4">
+        <app-button
+          variant="accent"
+          [title]="'Réservez votre appel'"
+          [type]="'button'"
+          [img]="'/images/mobile/phone.svg'"
+          (click)="onCallClick()"
+        />
+      </div>
     </div>
-  </ul>
+  </div>
 </nav>
