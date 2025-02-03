@@ -1,27 +1,30 @@
 <div
-  class="container bg-primary text-white p-6 sm:p-8 rounded-lg shadow-lg shadow-secondary mx-auto flex items-center justify-between border-1 border-secondary"
+  class="container bg-primary text-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg shadow-secondary mx-auto px-4 sm:px-0 flex flex-col sm:flex-row items-center gap-6 sm:gap-8 border-1 border-secondary"
 >
   <!-- Image -->
   <img
-    [ngSrc]="profileImage()"
     alt="Photo de profil"
     priority
     width="400"
     height="400"
-    class="w-48 sm:w-32 md:w-40 lg:w-48 xl:w-56 h-auto rounded-full object-cover shadow-xs border-2 border-secondary"
+    class="w-32 sm:w-40 md:w-48 lg:w-56 h-auto rounded-full object-cover shadow-xs border-2 border-secondary"
+    [ngSrc]="profileImage()"
   />
 
   <!-- Informations -->
-  <div class="flex-1 text-center sm:text-left ml-4 px-8">
-    <h2 class="text-white font-semibold text-lg md:text-6xl">{{ content().title }}</h2>
-    <p class="text-gray-300 text-sm md:text-2xl pb-4">
+  <div class="flex-1 text-center sm:text-left">
+    <h2 class="text-white font-semibold text-2xl sm:text-4xl md:text-5xl lg:text-6xl">
+      {{ content().title }}
+    </h2>
+    <p class="text-gray-300 text-base sm:text-lg md:text-xl lg:text-2xl py-3">
       {{ content().subtitle }}
     </p>
-    <p class="text-white text-sm md:text-lg mb-4">
+    <p class="text-white text-sm sm:text-base md:text-lg mb-4">
       {{ content().description }}
     </p>
-    <div class="flex space-x-4">
+    <div class="flex justify-center sm:justify-start gap-2">
       <app-button
+        class="!text-sm sm:!text-base"
         [variant]="cvButton().variant"
         [title]="cvButton().title"
         [type]="cvButton().type"
@@ -29,6 +32,7 @@
         (clicked)="onDownloadCV()"
       />
       <app-button
+        class="!text-sm sm:!text-base"
         [variant]="githubButton().variant"
         [title]="githubButton().title"
         [type]="githubButton().type"
@@ -40,11 +44,6 @@
 </div>
 
 <div class="container mx-auto mt-12 px-6 relative">
-  <!-- Fond avec gradient -->
-  <div
-    class="absolute inset-0 bg-gradient-to-r from-primary/10 via-[color-mix(in_oklch,var(--color-tertiary)_5%,transparent)] to-primary/10 blur-2xl -z-10 animate-pulse"
-  ></div>
-
   <!-- Conteneur flex pour les cartes -->
   <div class="flex flex-col md:flex-row gap-8">
     <!-- Blockquote (3/4) -->
