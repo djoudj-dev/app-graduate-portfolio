@@ -1,6 +1,7 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
-import { Component, signal, HostListener } from '@angular/core';
+import { Component, HostListener, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { LoginSmartComponent } from '../../../auth/components/login/login.smart.component';
 import { ButtonDumbComponent } from '../../../shared/components/button/button.dumb.component';
 
 interface NavigationItem {
@@ -13,11 +14,19 @@ interface NavigationItem {
   templateUrl: './navbar.smart.component.html',
   styleUrl: './navbar.smart.component.scss',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgOptimizedImage, NgClass, ButtonDumbComponent]
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    NgOptimizedImage,
+    NgClass,
+    ButtonDumbComponent,
+    LoginSmartComponent
+  ]
 })
 export class NavbarSmartComponent {
   menuIsOpen = false;
   darkMode = false;
+  loginModalOpen = false;
 
   protected showCallButton = signal(true);
   protected readonly navigationItems = signal<NavigationItem[]>([
@@ -45,6 +54,10 @@ export class NavbarSmartComponent {
 
   onCallClick() {
     this.router.navigate(['/home'], { fragment: 'contact' });
+  }
+
+  toggleLoginModal() {
+    this.loginModalOpen = !this.loginModalOpen;
   }
 
   // Ajout du gestionnaire d'événements pour fermer le menu en cliquant en dehors

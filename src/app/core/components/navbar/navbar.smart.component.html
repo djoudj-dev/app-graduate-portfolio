@@ -44,10 +44,10 @@
     </ul>
 
     <!-- Zone boutons (Desktop uniquement) -->
-    <div class="hidden md:flex items-center gap-x-4 mb-4">
+    <div class="hidden md:flex items-center gap-x-4">
       <app-button
         variant="accent"
-        class="!h-8 !px-4 flex items-center hover:scale-105 transition-all duration-300 text-base"
+        class="!h-8 !px-4 flex items-center hover:scale-105 transition-all duration-300 text-base mb-4"
         [title]="'Réservez votre appel'"
         [type]="'button'"
         [img]="'/images/mobile/phone.svg'"
@@ -55,12 +55,12 @@
       />
 
       <button
-        class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 group relative mt-2"
+        class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 group relative"
         aria-label="DarkMode"
         (click)="toggleDarkMode()"
       >
         <img
-          class="w-10 h-10 transition-all duration-300 hover:brightness-125 mt-2"
+          class="w-10 h-10 transition-all duration-300 hover:brightness-125"
           height="24"
           width="24"
           alt="DarkMode"
@@ -71,26 +71,26 @@
         ></span>
       </button>
 
-      <a
-        class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 group relative mt-2"
-        routerLink="/settings"
+      <button
+        class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 group relative"
+        (click)="toggleLoginModal()"
         aria-label="Paramètres"
       >
         <img
           ngSrc="/images/mobile/settings.svg"
           alt="Settings"
-          class="w-10 h-10 transition-all duration-300 hover:brightness-125 mt-2"
+          class="w-10 h-10 transition-all duration-300 hover:brightness-125"
           height="24"
           width="24"
         />
         <span
           class="absolute -bottom-1 left-0 w-full h-0.5 bg-[#ffd700] transform origin-left transition-transform duration-300 scale-x-0 group-hover:scale-x-100"
         ></span>
-      </a>
+      </button>
     </div>
 
-    <!-- Icône DarkMode et menu hamburger -->
-    <div class="flex items-center gap-4">
+    <!-- Icône DarkMode et menu hamburger (Mobile uniquement) -->
+    <div class="flex md:hidden items-center gap-4">
       <button
         class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 relative"
         aria-label="DarkMode"
@@ -102,6 +102,19 @@
           width="24"
           alt="DarkMode"
           [ngSrc]="darkMode ? '/images/mobile/light.svg' : '/images/mobile/moon.svg'"
+        />
+      </button>
+      <button
+        class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 relative"
+        (click)="toggleLoginModal()"
+        aria-label="Paramètres"
+      >
+        <img
+          ngSrc="/images/mobile/settings.svg"
+          alt="Settings"
+          class="w-8 h-8 transition-all duration-300 hover:brightness-125"
+          height="24"
+          width="24"
         />
       </button>
       <button
@@ -123,8 +136,12 @@
   <!-- Menu Mobile -->
   <div
     id="mobile-menu"
-    class="fixed inset-x-0 top-0 h-[60vh] w-screen bg-primary/95 backdrop-blur-md text-white text-center transform transition-transform duration-300 md:hidden pt-20 pb-8 overflow-y-auto"
-    [ngClass]="menuIsOpen ? 'translate-y-0' : '-translate-y-full'"
+    class="md:hidden fixed inset-x-0 top-0 h-[60vh] w-screen bg-primary/95 backdrop-blur-md text-white text-center transform transition-transform duration-300 pt-20 pb-8 overflow-y-auto"
+    [ngClass]="{
+      hidden: !menuIsOpen,
+      'translate-y-0': menuIsOpen,
+      '-translate-y-full': !menuIsOpen
+    }"
     (click)="$event.stopPropagation()"
   >
     <div class="flex flex-col items-center justify-start h-full px-4">
@@ -165,15 +182,6 @@
             >Contact</a
           >
         </li>
-        <li class="p-4">
-          <a
-            routerLink="/settings"
-            routerLinkActive="font-bold"
-            class="block w-full text-lg hover:text-tertiary transition-all duration-300"
-            (click)="toggleMenu()"
-            >Settings</a
-          >
-        </li>
       </ul>
 
       <!-- Actions mobile -->
@@ -188,4 +196,7 @@
       </div>
     </div>
   </div>
+
+  <!-- Login Modal -->
+  <app-login [isOpen]="loginModalOpen" (isOpenChange)="loginModalOpen = $event" />
 </nav>
