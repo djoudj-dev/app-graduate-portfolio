@@ -4,7 +4,8 @@
       "structure": "type(scope): description",
       "max_subject_length": 50,
       "require_blank_line_after_subject": true,
-      "language": "french"
+      "language": "french",
+      "context_aware": true
     },
     "types": {
       "feat": "Nouvelle fonctionnalité",
@@ -16,16 +17,71 @@
       "update": "Mise à jour",
       "dependencies": "Mise à jour des dépendances"
     },
+    "scopes": {
+      "component": "Composants Angular",
+      "service": "Services Angular",
+      "style": "Styles et CSS",
+      "config": "Configuration du projet",
+      "deps": "Dépendances",
+      "build": "Build et déploiement",
+      "test": "Tests",
+      "docs": "Documentation",
+      "ci": "Intégration continue",
+      "perf": "Performance",
+      "security": "Sécurité"
+    },
+    "file_patterns": {
+      "*.component.ts": {
+        "scope": "component",
+        "examples": [
+          "feat(component): ajouter le composant de navigation\n\n- Implémente la barre de navigation responsive\n- Ajoute le menu burger pour mobile\n- Intègre les transitions fluides\n\n- Réf: #123"
+        ]
+      },
+      "*.service.ts": {
+        "scope": "service",
+        "examples": [
+          "feat(service): implémenter le service d'authentification\n\n- Ajoute la gestion des tokens JWT\n- Implémente la persistance de session\n- Sécurise les routes protégées\n\n- Réf: #456"
+        ]
+      },
+      "*.scss": {
+        "scope": "style",
+        "examples": [
+          "update(style): améliorer le design system\n\n- Standardise les variables de couleur\n- Optimise les media queries\n- Améliore l'accessibilité des contrastes\n\n- Réf: #789"
+        ]
+      },
+      "package.json": {
+        "scope": "deps",
+        "examples": [
+          "dependencies(deps): mettre à jour Angular CLI\n\n- Met à jour @angular/cli vers 19.1.0\n- Résout les vulnérabilités de sécurité\n- Optimise les performances de build\n\n- Réf: #101"
+        ]
+      },
+      "*.config.js": {
+        "scope": "config",
+        "examples": [
+          "chore(config): optimiser la configuration webpack\n\n- Améliore le temps de build de 30%\n- Configure le tree-shaking\n- Optimise le splitting de code\n\n- Réf: #202"
+        ]
+      }
+    },
     "message_rules": [
-      "Commencer par une ligne courte et impérative",
-      "Expliquer le pourquoi et non le comment",
-      "Utiliser des tirets (-) pour lister les détails",
-      "Adopter un style professionnel et précis"
+      "1. Commencer par une ligne courte et impérative (max 50 caractères)",
+      "2. Ajouter une ligne vide",
+      "3. Expliquer en détail le POURQUOI et l'IMPACT du changement",
+      "4. Décrire les impacts et effets secondaires éventuels",
+      "5. Référencer les tickets/issues liés avec #",
+      "6. Utiliser des tirets (-) pour lister les détails",
+      "7. Mentionner les breaking changes si présents",
+      "8. Inclure des métriques quand pertinent (%, temps, taille)",
+      "9. Préciser le contexte technique si nécessaire"
     ],
     "examples": [
-      "feat(auth): ajouter l'authentification OAuth2",
-      "fix(sidebar): corriger l'affichage sur mobile",
-      "hotfix(api): résoudre l'erreur 500 critique"
+      "feat(auth): ajouter la connexion avec Google\n\n- Permet aux utilisateurs de se connecter avec leur compte Google\n- Simplifie le processus d'inscription\n- Réduit les frictions à l'entrée\n\n- Réf: #123",
+      "fix(navbar): corriger le menu sur mobile\n\n- Résout le problème de superposition des éléments\n- Améliore la réactivité du menu burger\n- Optimise l'expérience tactile\n\n- Fixes #456",
+      "refactor(api): optimiser les appels HTTP\n\n- Réduit le nombre de requêtes de 40%\n- Implémente le pattern Repository\n- Améliore la gestion des erreurs\n\n- Réf: #789",
+      "chore(config): configurer l'environnement de dev\n\n- Ajoute ESLint et Prettier\n- Configure Husky pour les pre-commits\n- Standardise le format du code\n\n- Réf: #101",
+      "hotfix(api): corriger l'erreur 500 en production\n\n- Corrige le crash du serveur lors des uploads\n- Ajoute des logs pour le debugging\n- Implémente un circuit breaker\n\n- Fixes #202",
+      "release(v2): préparer la version 2.0.0\n\n- Finalise les nouvelles fonctionnalités\n- Met à jour la documentation\n- Prépare les notes de version\n\n- Réf: #303",
+      "update(ui): moderniser l'interface utilisateur\n\n- Applique le nouveau design system\n- Améliore l'accessibilité\n- Optimise les performances\n\n- Réf: #404",
+      "dependencies(angular): mise à jour vers v19\n\n- Met à jour le framework vers 19.1.0\n- Adapte le code aux nouvelles APIs\n- Résout les conflits de dépendances\n\n- Réf: #505"
     ]
   },
   "angular_19": {
