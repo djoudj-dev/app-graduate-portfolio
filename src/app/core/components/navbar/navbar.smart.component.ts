@@ -2,6 +2,7 @@ import { NgClass, NgOptimizedImage } from '@angular/common';
 import { Component, HostListener, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { LoginSmartComponent } from '../../../auth/components/login/login.smart.component';
+import { AuthService } from '../../../auth/services/auth.service';
 import { ButtonDumbComponent } from '../../../shared/components/button/button.dumb.component';
 
 interface NavigationItem {
@@ -27,6 +28,7 @@ export class NavbarSmartComponent {
   menuIsOpen = false;
   darkMode = false;
   loginModalOpen = false;
+  settingsMenuOpen = false;
 
   protected showCallButton = signal(true);
   protected readonly navigationItems = signal<NavigationItem[]>([
@@ -36,7 +38,14 @@ export class NavbarSmartComponent {
     { href: '/home#contact', label: 'Contact' }
   ]);
 
-  constructor(private router: Router) {}
+  isLoggedIn(): boolean {
+    return this.authService.isAuthenticated();
+  }
+
+  constructor(
+    private router: Router,
+    readonly authService: AuthService
+  ) {}
 
   toggleMenu() {
     this.menuIsOpen = !this.menuIsOpen;
@@ -52,6 +61,10 @@ export class NavbarSmartComponent {
     }
   }
 
+  onLogout(): void {
+    this.authService.logout();
+  }
+
   onCallClick() {
     this.router.navigate(['/home'], { fragment: 'contact' });
   }
@@ -60,11 +73,23 @@ export class NavbarSmartComponent {
     this.loginModalOpen = !this.loginModalOpen;
   }
 
+  toggleSettingsMenu() {
+    this.settingsMenuOpen = !this.settingsMenuOpen;
+  }
+
+  navigateToDashboard() {
+    this.router.navigate(['/admin/dashboard']);
+    this.settingsMenuOpen = false;
+  }
+
   // Ajout du gestionnaire d'événements pour fermer le menu en cliquant en dehors
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent) {
+    // Gestion existante du menu mobile
     const menu = document.getElementById('mobile-menu');
     const hamburgerButton = document.querySelector('[aria-label="Ouvrir/fermer le menu"]');
+    const settingsButton = document.querySelector('[aria-label="Menu utilisateur"]');
+    const settingsMenu = document.querySelector('.origin-top-right');
 
     if (
       this.menuIsOpen &&
@@ -73,6 +98,16 @@ export class NavbarSmartComponent {
       !hamburgerButton?.contains(event.target as Node)
     ) {
       this.menuIsOpen = false;
+    }
+
+    // Fermeture du menu settings au clic extérieur
+    if (
+      this.settingsMenuOpen &&
+      settingsMenu &&
+      !settingsMenu.contains(event.target as Node) &&
+      !settingsButton?.contains(event.target as Node)
+    ) {
+      this.settingsMenuOpen = false;
     }
   }
 }

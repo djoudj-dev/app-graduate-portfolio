@@ -71,22 +71,87 @@
         ></span>
       </button>
 
-      <button
-        class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 group relative"
-        (click)="toggleLoginModal()"
-        aria-label="Paramètres"
-      >
-        <img
-          ngSrc="/images/mobile/settings.svg"
-          alt="Settings"
-          class="w-10 h-10 transition-all duration-300 hover:brightness-125"
-          height="24"
-          width="24"
-        />
-        <span
-          class="absolute -bottom-1 left-0 w-full h-0.5 bg-[#ffd700] transform origin-left transition-transform duration-300 scale-x-0 group-hover:scale-x-100"
-        ></span>
-      </button>
+      @if (!isLoggedIn()) {
+        <button
+          class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 group relative"
+          (click)="toggleLoginModal()"
+          aria-label="Connexion"
+        >
+          <img
+            ngSrc="/images/mobile/settings.svg"
+            alt="Settings"
+            class="w-10 h-10 transition-all duration-300 hover:brightness-125"
+            height="24"
+            width="24"
+          />
+        </button>
+      } @else {
+        <div class="relative">
+          <button
+            class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 group"
+            (click)="toggleSettingsMenu()"
+            aria-label="Menu utilisateur"
+          >
+            <img
+              ngSrc="/images/mobile/settings.svg"
+              alt="Settings"
+              class="w-10 h-10 transition-all duration-300 hover:brightness-125"
+              height="24"
+              width="24"
+            />
+          </button>
+
+          @if (settingsMenuOpen) {
+            <div
+              class="fixed right-4 top-[4.5rem] w-56 origin-top-right transform transition-all duration-300 ease-out z-50"
+              [class.scale-95]="!settingsMenuOpen"
+              [class.scale-100]="settingsMenuOpen"
+              [class.opacity-0]="!settingsMenuOpen"
+              [class.opacity-100]="settingsMenuOpen"
+            >
+              <div
+                class="bg-white border-2 border-tertiary/20 rounded-lg shadow-xl overflow-hidden"
+              >
+                <div class="p-4 border-b border-tertiary/10">
+                  <p class="text-sm font-medium text-text">Menu Admin</p>
+                </div>
+
+                <div class="p-2">
+                  <button
+                    class="w-full px-4 py-2 text-left rounded-md hover:bg-tertiary/10 transition-colors duration-300 flex items-center gap-3 group"
+                    (click)="navigateToDashboard()"
+                  >
+                    <img
+                      [ngSrc]="'/images/mobile/dashboard.svg'"
+                      alt="Dashboard"
+                      class="w-5 h-5 transition-all duration-300 group-hover:scale-110"
+                      width="20"
+                      height="20"
+                      priority
+                    />
+                    <span class="text-sm text-text">Dashboard</span>
+                  </button>
+
+                  <button
+                    class="w-full px-4 py-2 text-left rounded-md hover:bg-red-500/10 transition-colors duration-300 flex items-center gap-3 group mt-1"
+                    (click)="onLogout()"
+                  >
+                    <img
+                      [ngSrc]="'/images/mobile/logout.svg'"
+                      alt="Logout"
+                      class="w-5 h-5 transition-all duration-300 group-hover:scale-110"
+                      width="20"
+                      height="20"
+                      priority
+                    />
+                    <span class="text-sm text-text group-hover:text-red-400">Déconnexion</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      }
     </div>
 
     <!-- Icône DarkMode et menu hamburger (Mobile uniquement) -->
@@ -198,5 +263,9 @@
   </div>
 
   <!-- Login Modal -->
-  <app-login [isOpen]="loginModalOpen" (isOpenChange)="loginModalOpen = $event" />
+  <app-login
+    [isOpen]="loginModalOpen"
+    (isOpenChange)="loginModalOpen = $event"
+    (loginSuccess)="authService.login('', '')"
+  />
 </nav>
