@@ -1,6 +1,7 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +14,16 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class LoginSmartComponent {
   @Input() isOpen = false;
   @Output() isOpenChange = new EventEmitter<boolean>();
+  @Output() loginSuccess = new EventEmitter<void>();
 
   protected loginForm: FormGroup;
   protected isSubmitting = false;
   protected showPassword = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
@@ -43,9 +48,11 @@ export class LoginSmartComponent {
     if (this.loginForm.valid) {
       this.isSubmitting = true;
       try {
-        // Ici, vous ajouterez la logique d'authentification
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulation
-        console.log('Form submitted:', this.loginForm.value);
+        const { email, password } = this.loginForm.value;
+        await this.authService.login(email, password);
+        this.loginSuccess.emit();
+        this.closeModal();
+        this.loginForm.reset();
       } catch (error) {
         console.error('Error submitting form:', error);
       } finally {
