@@ -24,14 +24,14 @@ export class AboutDumbComponent {
     variant: 'secondary' as const,
     title: 'Télécharger mon CV',
     type: 'button' as const,
-    img: '/images/about/download.svg'
+    img: '/images/icons/download.svg'
   }));
 
   protected readonly githubButton = computed(() => ({
     variant: 'accent' as const,
     title: 'Mon GitHub',
     type: 'button' as const,
-    img: '/images/about/github.svg'
+    img: '/images/icons/github.svg'
   }));
 
   // Méthodes pour gérer les clics
