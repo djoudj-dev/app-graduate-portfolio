@@ -16,5 +16,5 @@ export const ABOUT_MOCK: About = {
     cv: '/assets/cv.pdf',
     github: 'https://github.com/votre-username'
   },
-  profileImage: '/images/about/LinkedInPhotoProfil.webp'
+  profileImage: '/images/LinkedInPhotoProfil.png'
 };
