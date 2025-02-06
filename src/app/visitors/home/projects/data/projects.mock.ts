@@ -7,7 +7,8 @@ export const PROJECTS_MOCK: Project[] = [
     description: 'Mon portfolio personnel développé avec Angular et TailwindCSS',
     image: '/images/projects/portfolio.webp',
     technologies: ['Angular', 'TailwindCSS', 'TypeScript'],
-    githubUrl: 'https://github.com/username/portfolio'
+    githubUrl: 'https://github.com/username/portfolio',
+    demoUrl: 'https://github.com/username/portfolio'
   },
   {
     id: 2,
@@ -15,7 +16,8 @@ export const PROJECTS_MOCK: Project[] = [
     description: 'Mon portfolio personnel développé avec Angular et TailwindCSS',
     image: '/images/projects/portfolio.webp',
     technologies: ['Angular', 'TailwindCSS', 'TypeScript'],
-    githubUrl: 'https://github.com/username/portfolio'
+    githubUrl: 'https://github.com/username/portfolio',
+    demoUrl: 'https://github.com/username/portfolio'
   },
   {
     id: 3,
@@ -23,7 +25,8 @@ export const PROJECTS_MOCK: Project[] = [
     description: 'Mon portfolio personnel développé avec Angular et TailwindCSS',
     image: '/images/projects/portfolio.webp',
     technologies: ['Angular', 'TailwindCSS', 'TypeScript'],
-    githubUrl: 'https://github.com/username/portfolio'
+    githubUrl: 'https://github.com/username/portfolio',
+    demoUrl: 'https://github.com/username/portfolio'
   },
   {
     id: 4,
@@ -31,7 +34,8 @@ export const PROJECTS_MOCK: Project[] = [
     description: 'Mon portfolio personnel développé avec Angular et TailwindCSS',
     image: '/images/projects/portfolio.webp',
     technologies: ['Angular', 'TailwindCSS', 'TypeScript'],
-    githubUrl: 'https://github.com/username/portfolio'
+    githubUrl: 'https://github.com/username/portfolio',
+    demoUrl: 'https://github.com/username/portfolio'
   },
   {
     id: 5,
@@ -39,7 +43,8 @@ export const PROJECTS_MOCK: Project[] = [
     description: 'Mon portfolio personnel développé avec Angular et TailwindCSS',
     image: '/images/projects/portfolio.webp',
     technologies: ['Angular', 'TailwindCSS', 'TypeScript'],
-    githubUrl: 'https://github.com/username/portfolio'
+    githubUrl: 'https://github.com/username/portfolio',
+    demoUrl: 'https://github.com/username/portfolio'
   },
   {
     id: 6,
@@ -47,7 +52,8 @@ export const PROJECTS_MOCK: Project[] = [
     description: 'Mon portfolio personnel développé avec Angular et TailwindCSS',
     image: '/images/projects/portfolio.webp',
     technologies: ['Angular', 'TailwindCSS', 'TypeScript'],
-    githubUrl: 'https://github.com/username/portfolio'
+    githubUrl: 'https://github.com/username/portfolio',
+    demoUrl: 'https://github.com/username/portfolio'
   },
   {
     id: 7,
@@ -55,7 +61,8 @@ export const PROJECTS_MOCK: Project[] = [
     description: 'Mon portfolio personnel développé avec Angular et TailwindCSS',
     image: '/images/projects/portfolio.webp',
     technologies: ['Angular', 'TailwindCSS', 'TypeScript'],
-    githubUrl: 'https://github.com/username/portfolio'
+    githubUrl: 'https://github.com/username/portfolio',
+    demoUrl: 'https://github.com/username/portfolio'
   },
   {
     id: 8,
@@ -63,6 +70,7 @@ export const PROJECTS_MOCK: Project[] = [
     description: 'Mon portfolio personnel développé avec Angular et TailwindCSS',
     image: '/images/projects/portfolio.webp',
     technologies: ['Angular', 'TailwindCSS', 'TypeScript'],
-    githubUrl: 'https://github.com/username/portfolio'
+    githubUrl: 'https://github.com/username/portfolio',
+    demoUrl: 'https://github.com/username/portfolio'
   }
 ];

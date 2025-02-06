@@ -66,9 +66,16 @@
             <!-- Technologies utilisées -->
             <div class="flex flex-wrap gap-2 mb-4">
               @for (tech of project.technologies; track tech) {
-                <span class="px-3 py-1 text-sm rounded-full bg-tertiary/10 text-tertiary">
-                  {{ tech }}
-                </span>
+                <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-tertiary/10">
+                  <img
+                    ngSrc="/images/skills/frontend/{{ tech.toLowerCase() }}.svg"
+                    [alt]="tech"
+                    class="w-4 h-4"
+                    width="16"
+                    height="16"
+                  />
+                  <span class="text-sm text-text">{{ tech }}</span>
+                </div>
               }
             </div>
 
@@ -80,7 +87,13 @@
                   target="_blank"
                   class="text-tertiary hover:text-text transition-colors duration-300 flex items-center gap-2"
                 >
-                  <img src="/images/projects/demo.svg" alt="" class="w-5 h-5" />
+                  <img
+                    ngSrc="/images/projects/link.svg"
+                    alt="Demo"
+                    class="w-5 h-5"
+                    width="20"
+                    height="20"
+                  />
                   Demo
                 </a>
               }
@@ -90,8 +103,14 @@
                   target="_blank"
                   class="text-tertiary hover:text-text transition-colors duration-300 flex items-center gap-2"
                 >
-                  <img src="/images/projects/github.svg" alt="" class="w-5 h-5" />
-                  Code
+                  <img
+                    ngSrc="/images/projects/github.svg"
+                    alt="GitHub"
+                    class="w-5 h-5"
+                    width="20"
+                    height="20"
+                  />
+                  GitHub
                 </a>
               }
             </div>
