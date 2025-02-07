@@ -5,7 +5,17 @@
       "max_subject_length": 50,
       "require_blank_line_after_subject": true,
       "language": "french",
-      "context_aware": true
+      "context_aware": true,
+      "breaking_change_marker": "!",
+      "footer_markers": {
+        "breaking_changes": "BREAKING CHANGE:",
+        "deprecated": "DEPRECATED:",
+        "references": "Réf:",
+        "reviewed_by": "Revu par:",
+        "co_authored_by": "Co-authored-by:",
+        "performance": "Performance:",
+        "migration": "Migration:"
+      }
     },
     "types": {
       "feat": "Nouvelle fonctionnalité",
@@ -15,13 +25,34 @@
       "hotfix": "Correction urgente",
       "release": "Publication de version",
       "update": "Mise à jour",
-      "dependencies": "Mise à jour des dépendances"
+      "dependencies": "Mise à jour des dépendances",
+      "perf": "Amélioration des performances",
+      "test": "Modification des tests",
+      "docs": "Documentation",
+      "style": "Modifications de style",
+      "ci": "Configuration CI/CD",
+      "revert": "Annulation d'un commit",
+      "security": "Correctif de sécurité",
+      "i18n": "Internationalisation",
+      "a11y": "Accessibilité"
     },
     "scopes": {
-      "component": "Composants Angular",
-      "service": "Services Angular",
-      "style": "Styles et CSS",
-      "config": "Configuration du projet",
+      "component": {
+        "description": "Composants Angular",
+        "sub_scopes": ["ui", "layout", "form", "modal", "widget", "pages", "shared"]
+      },
+      "service": {
+        "description": "Services Angular",
+        "sub_scopes": ["auth", "api", "store", "utils", "guards", "interceptors"]
+      },
+      "style": {
+        "description": "Styles et CSS",
+        "sub_scopes": ["theme", "layout", "components", "animations", "variables"]
+      },
+      "config": {
+        "description": "Configuration du projet",
+        "sub_scopes": ["env", "build", "lint", "deploy", "i18n", "seo"]
+      },
       "deps": "Dépendances",
       "build": "Build et déploiement",
       "test": "Tests",
@@ -29,109 +60,128 @@
       "ci": "Intégration continue",
       "perf": "Performance",
       "security": "Sécurité"
-    },
-    "file_patterns": {
-      "*.component.ts": {
-        "scope": "component",
-        "examples": [
-          "feat(component): ajouter le composant de navigation\n\n- Implémente la barre de navigation responsive\n- Ajoute le menu burger pour mobile\n- Intègre les transitions fluides\n\n- Réf: #123"
-        ]
-      },
-      "*.service.ts": {
-        "scope": "service",
-        "examples": [
-          "feat(service): implémenter le service d'authentification\n\n- Ajoute la gestion des tokens JWT\n- Implémente la persistance de session\n- Sécurise les routes protégées\n\n- Réf: #456"
-        ]
-      },
-      "*.scss": {
-        "scope": "style",
-        "examples": [
-          "update(style): améliorer le design system\n\n- Standardise les variables de couleur\n- Optimise les media queries\n- Améliore l'accessibilité des contrastes\n\n- Réf: #789"
-        ]
-      },
-      "package.json": {
-        "scope": "deps",
-        "examples": [
-          "dependencies(deps): mettre à jour Angular CLI\n\n- Met à jour @angular/cli vers 19.1.0\n- Résout les vulnérabilités de sécurité\n- Optimise les performances de build\n\n- Réf: #101"
-        ]
-      },
-      "*.config.js": {
-        "scope": "config",
-        "examples": [
-          "chore(config): optimiser la configuration webpack\n\n- Améliore le temps de build de 30%\n- Configure le tree-shaking\n- Optimise le splitting de code\n\n- Réf: #202"
-        ]
-      }
-    },
-    "message_rules": [
-      "1. Commencer par une ligne courte et impérative (max 50 caractères)",
-      "2. Ajouter une ligne vide",
-      "3. Expliquer en détail le POURQUOI et l'IMPACT du changement",
-      "4. Décrire les impacts et effets secondaires éventuels",
-      "5. Référencer les tickets/issues liés avec #",
-      "6. Utiliser des tirets (-) pour lister les détails",
-      "7. Mentionner les breaking changes si présents",
-      "8. Inclure des métriques quand pertinent (%, temps, taille)",
-      "9. Préciser le contexte technique si nécessaire"
-    ],
-    "examples": [
-      "feat(auth): ajouter la connexion avec Google\n\n- Permet aux utilisateurs de se connecter avec leur compte Google\n- Simplifie le processus d'inscription\n- Réduit les frictions à l'entrée\n\n- Réf: #123",
-      "fix(navbar): corriger le menu sur mobile\n\n- Résout le problème de superposition des éléments\n- Améliore la réactivité du menu burger\n- Optimise l'expérience tactile\n\n- Fixes #456",
-      "refactor(api): optimiser les appels HTTP\n\n- Réduit le nombre de requêtes de 40%\n- Implémente le pattern Repository\n- Améliore la gestion des erreurs\n\n- Réf: #789",
-      "chore(config): configurer l'environnement de dev\n\n- Ajoute ESLint et Prettier\n- Configure Husky pour les pre-commits\n- Standardise le format du code\n\n- Réf: #101",
-      "hotfix(api): corriger l'erreur 500 en production\n\n- Corrige le crash du serveur lors des uploads\n- Ajoute des logs pour le debugging\n- Implémente un circuit breaker\n\n- Fixes #202",
-      "release(v2): préparer la version 2.0.0\n\n- Finalise les nouvelles fonctionnalités\n- Met à jour la documentation\n- Prépare les notes de version\n\n- Réf: #303",
-      "update(ui): moderniser l'interface utilisateur\n\n- Applique le nouveau design system\n- Améliore l'accessibilité\n- Optimise les performances\n\n- Réf: #404",
-      "dependencies(angular): mise à jour vers v19\n\n- Met à jour le framework vers 19.1.0\n- Adapte le code aux nouvelles APIs\n- Résout les conflits de dépendances\n\n- Réf: #505"
-    ]
+    }
   },
   "angular_19": {
     "core_features": {
       "directives": {
         "use_new_syntax": true,
-        "preferred": ["@if", "@for", "@switch"],
-        "deprecated": ["*ngIf", "*ngFor"]
+        "preferred": ["@if", "@for", "@switch", "@defer", "@placeholder"],
+        "deprecated": ["*ngIf", "*ngFor", "*ngSwitch"],
+        "custom_structural": {
+          "naming": "@customName",
+          "use_generic_type": true
+        }
       },
       "reactivity": {
         "use_signals": true,
-        "preferred_apis": ["signal()", "computed()", "effect()"],
-        "avoid": "excessive RxJS usage"
+        "preferred_apis": ["signal()", "computed()", "effect()", "toSignal()", "toObservable()"],
+        "advanced_patterns": {
+          "derived_signals": true,
+          "signal_inputs": true,
+          "batch_updates": true,
+          "mutation_tracking": true
+        },
+        "performance": {
+          "untracked": true,
+          "signal_debugging": true,
+          "computed_granularity": "fine"
+        }
       },
       "components": {
         "type": "standalone",
         "change_detection": "OnPush",
         "prefer_signals": true,
-        "patterns": ["dumb", "dumb-dumb", "smart"]
+        "patterns": ["dumb", "smart", "presenter"],
+        "lifecycle_hooks": {
+          "prefer": ["onInit", "onDestroy"],
+          "avoid": ["onChanges"],
+          "cleanup": "required"
+        },
+        "view_encapsulation": "Emulated",
+        "template_validation": "strict"
+      },
+      "dependency_injection": {
+        "prefer_providedIn": "root",
+        "scoped_services": true,
+        "injection_tokens": {
+          "use_interfaces": true,
+          "factory_functions": true
+        }
       }
     },
     "performance": {
       "hydration": {
         "enabled": true,
-        "incremental": true
+        "incremental": true,
+        "strategies": {
+          "progressive": true,
+          "selective": true
+        }
       },
       "loading": {
         "use_defer": true,
-        "preload_critical": true
+        "preload_critical": true,
+        "lazy_boundaries": {
+          "route_level": true,
+          "component_level": true
+        },
+        "prefetch_strategies": {
+          "viewport": true,
+          "user_intent": true
+        }
       },
       "animations": {
-        "use_view_transitions": true
+        "use_view_transitions": true,
+        "web_animations": true,
+        "performance_budget": {
+          "max_duration": "300ms",
+          "prefer_transforms": true
+        }
+      },
+      "rendering": {
+        "virtual_scrolling": true,
+        "windowing": true,
+        "skeleton_screens": true
       }
     }
   },
   "typescript": {
     "strict_mode": true,
+    "compiler_options": {
+      "target": "ES2022",
+      "strict": true,
+      "noUncheckedIndexedAccess": true,
+      "noImplicitOverride": true,
+      "useUnknownInCatchVariables": true
+    },
     "best_practices": {
       "types": {
-        "prefer": ["unknown", "Readonly<T>", "Record<K,V>"],
-        "avoid": "any",
-        "advanced": ["satisfies", "as const", "readonly class properties"]
+        "prefer": ["unknown", "Readonly<T>", "Record<K,V>", "Partial<T>", "Required<T>"],
+        "avoid": ["any", "Object", "Function"],
+        "advanced": [
+          "satisfies",
+          "as const",
+          "readonly class properties",
+          "template literal types",
+          "conditional types",
+          "mapped types"
+        ]
       },
       "immutability": {
         "use_const": true,
-        "readonly_properties": true
+        "readonly_properties": true,
+        "immutable_updates": true
       },
       "error_handling": {
         "use_custom_errors": true,
-        "use_result_types": true
+        "use_result_types": true,
+        "error_boundaries": true
+      },
+      "generics": {
+        "constraints": true,
+        "defaults": true,
+        "variance": true
       }
     }
   },
@@ -139,65 +189,172 @@
     "nestjs": {
       "configuration": {
         "use_nestjs_config": true,
-        "validation_library": "zod"
+        "validation_library": "zod",
+        "env_validation": true
       },
-      "architecture": "CQRS",
+      "architecture": {
+        "pattern": "CQRS",
+        "modules": {
+          "domain_driven": true,
+          "feature_based": true
+        }
+      },
       "error_handling": {
         "use_exception_filters": true,
-        "custom_error_classes": true
+        "custom_error_classes": true,
+        "error_serialization": true
+      },
+      "performance": {
+        "caching": {
+          "type": "redis",
+          "strategy": "distributed"
+        },
+        "compression": true,
+        "rate_limiting": true
       }
     },
     "springboot": {
-      "dto": "use_records",
-      "threads": "virtual_threads",
-      "architecture": "hexagonal"
+      "features": {
+        "dto": "use_records",
+        "threads": "virtual_threads",
+        "architecture": "hexagonal"
+      },
+      "reactive": {
+        "use_webflux": true,
+        "reactive_repositories": true
+      },
+      "validation": {
+        "use_jakarta": true,
+        "custom_validators": true
+      }
     }
   },
   "styling": {
     "tailwind_v4": {
       "theme_definition": {
         "use_at_theme": true,
-        "avoid_config_file": true
+        "avoid_config_file": true,
+        "design_tokens": {
+          "colors": "hsl",
+          "spacing": "rem",
+          "typography": "fluid"
+        }
       },
       "features": {
         "container_queries": true,
         "color_mixing": true,
-        "group_modifiers": ["group-has", "group-not-has"]
+        "group_modifiers": ["group-has", "group-not-has", "group-is", "group-not"],
+        "parent_selectors": true,
+        "custom_media_queries": true
       },
       "transitions": {
         "use_theme_variables": true,
-        "properties": ["ease-in-out", "duration"]
+        "properties": ["ease-in-out", "duration", "delay"],
+        "view_transitions": true
+      },
+      "utilities": {
+        "custom_variants": true,
+        "responsive_patterns": true,
+        "state_variants": true
       }
     },
     "animations": {
-      "use_view_transitions": true
+      "use_view_transitions": true,
+      "scroll_driven": true,
+      "performance": {
+        "will_change": "auto",
+        "composited_properties": true
+      }
     }
   },
   "code_quality": {
     "testing": {
       "framework": "jest",
       "coverage_minimum": 80,
-      "types": ["unit", "e2e"]
+      "types": ["unit", "e2e", "integration", "performance"],
+      "practices": {
+        "tdd": true,
+        "bdd": true,
+        "snapshot": "selective"
+      }
     },
     "principles": {
-      "follow": ["SOLID", "DRY", "LDD"],
-      "architecture": "feature-based"
+      "follow": ["SOLID", "DRY", "KISS", "YAGNI"],
+      "architecture": "feature-based",
+      "patterns": {
+        "behavioral": ["observer", "strategy", "command"],
+        "structural": ["adapter", "decorator", "facade"],
+        "creational": ["factory", "singleton", "builder"]
+      }
+    },
+    "documentation": {
+      "required": {
+        "readme": true,
+        "api_docs": true,
+        "changelog": true
+      },
+      "code_comments": {
+        "when": "complex logic only",
+        "format": "JSDoc"
+      }
     }
   },
   "component_communication": {
     "inputs": {
       "use_new_syntax": true,
-      "features": ["default_values", "aliases", "transformers"]
+      "features": ["default_values", "aliases", "transformers", "required_inputs", "signal_inputs"],
+      "validation": {
+        "runtime": true,
+        "compile_time": true
+      }
     },
     "outputs": {
       "use_signal_based": true,
       "prefer": "output()",
-      "support": ["outputFromObservable()", "aliases"]
+      "support": ["outputFromObservable()", "aliases"],
+      "error_handling": true
     },
     "bindings": {
       "class": ["[class]", "[class.name]"],
       "style": ["[style]", "[style.property]"],
-      "optimization": "use conditions for dynamic styles"
+      "optimization": {
+        "use_conditions": true,
+        "memoization": true
+      }
+    },
+    "state_management": {
+      "signals": {
+        "local": true,
+        "shared": true
+      },
+      "stores": {
+        "pattern": "component-store",
+        "persistence": "optional"
+      }
+    }
+  },
+  "security": {
+    "authentication": {
+      "jwt": {
+        "rotation": true,
+        "refresh_strategy": "sliding"
+      },
+      "oauth2": {
+        "pkce": true,
+        "state_validation": true
+      }
+    },
+    "authorization": {
+      "rbac": true,
+      "policy_based": true
+    },
+    "csrf": {
+      "protection": true,
+      "same_site": "Strict"
+    },
+    "headers": {
+      "security_headers": true,
+      "csp": "strict"
     }
   }
 }
