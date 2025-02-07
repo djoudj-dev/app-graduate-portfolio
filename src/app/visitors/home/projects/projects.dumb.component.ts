@@ -21,16 +21,21 @@ export class ProjectsDumbComponent {
 
   protected readonly filteredProjects = computed(() => {
     const term = (this.searchTerm()?.toLowerCase() || '').trim();
-    const projects = this.projectsService.recentProjects();
+    const projects = this.projectsService.getProjects()();
 
-    if (!term) return projects;
+    if (!term) {
+      return projects.sort((a, b) => b.id - a.id).slice(0, 4);
+    }
 
-    return projects.filter(
-      (project) =>
-        project.title.toLowerCase().includes(term) ||
-        project.description.toLowerCase().includes(term) ||
-        project.technologies.some((tech) => tech.toLowerCase().includes(term))
-    );
+    return projects
+      .filter(
+        (project) =>
+          project.title.toLowerCase().includes(term) ||
+          project.description.toLowerCase().includes(term) ||
+          project.technologies.some((tech) => tech.toLowerCase().includes(term))
+      )
+      .sort((a, b) => b.id - a.id)
+      .slice(0, 4);
   });
 
   clearSearch(): void {
