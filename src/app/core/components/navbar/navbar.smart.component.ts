@@ -1,10 +1,10 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
 import { Component, HostListener, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { CountersService } from '../../../admin/stats/counters/services/counters.service';
 import { LoginSmartComponent } from '../../../auth/components/login/login.smart.component';
 import { AuthService } from '../../../auth/services/auth.service';
 import { ButtonDumbComponent } from '../../../shared/components/button/button.dumb.component';
-
 interface NavigationItem {
   href: string;
   label: string;
@@ -44,7 +44,8 @@ export class NavbarSmartComponent {
 
   constructor(
     private router: Router,
-    readonly authService: AuthService
+    readonly authService: AuthService,
+    readonly countersService: CountersService
   ) {}
 
   toggleMenu() {
@@ -66,6 +67,7 @@ export class NavbarSmartComponent {
   }
 
   onCallClick() {
+    this.countersService.incrementCalls();
     this.router.navigate(['/home'], { fragment: 'contact' });
   }
 
