@@ -13,15 +13,34 @@ export class AuthService {
   }
 
   private checkToken(): void {
-    const token = localStorage.getItem(this.TOKEN_KEY);
-    this.isAuthenticatedSignal.set(!!token);
+    const tokenStr = localStorage.getItem(this.TOKEN_KEY);
+    if (tokenStr) {
+      try {
+        const tokenData = JSON.parse(tokenStr);
+        const isValid = tokenData.expiresAt > Date.now();
+        if (!isValid) {
+          this.logout();
+          return;
+        }
+        this.isAuthenticatedSignal.set(true);
+      } catch (error) {
+        // Si le token n'est pas un JSON valide, on le supprime
+        this.logout();
+      }
+    } else {
+      this.isAuthenticatedSignal.set(false);
+    }
   }
 
   login(email: string, password: string): Promise<void> {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const fakeToken = 'fake-jwt-token-' + Date.now();
-        localStorage.setItem(this.TOKEN_KEY, fakeToken);
+        // Création d'un objet contenant le token et sa date d'expiration
+        const tokenData = {
+          token: 'fake-jwt-token-' + Date.now(),
+          expiresAt: Date.now() + 24 * 60 * 60 * 1000 // Expire dans 24 heures
+        };
+        localStorage.setItem(this.TOKEN_KEY, JSON.stringify(tokenData));
         this.isAuthenticatedSignal.set(true);
         this.router.navigate(['/admin/dashboard']);
         resolve();

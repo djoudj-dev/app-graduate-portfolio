@@ -11,13 +11,13 @@
     >
       <div class="flex items-center group">
         <img
-          class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 transform transition-all duration-500 group-hover:rotate-180 flex-shrink-0"
-          height="24"
-          width="24"
+          class="w-16 h-16 transition-all duration-300 group-hover:rotate-180 flex-shrink-0"
+          height="32"
+          width="32"
           alt="Logo"
           ngSrc="/images/navbar/code.svg"
         />
-        <div class="flex items-baseline truncate">
+        <div class="flex items-baseline truncate text-4xl pl-2">
           <span>djoudj</span>
           <span class="text-tertiary">.</span>
           <span>dev</span>
@@ -60,11 +60,11 @@
         (click)="toggleDarkMode()"
       >
         <img
-          class="w-10 h-10 transition-all duration-300 hover:brightness-125"
-          height="24"
-          width="24"
-          alt="DarkMode"
+          class="w-8 h-8 transition-all duration-300 hover:brightness-125"
+          height="32"
+          width="32"
           [ngSrc]="darkMode ? '/images/icons/light.svg' : '/images/icons/moon.svg'"
+          alt="DarkMode"
         />
         <span
           class="absolute -bottom-1 left-0 w-full h-0.5 bg-[#ffd700] transform origin-left transition-transform duration-300 scale-x-0 group-hover:scale-x-100"
@@ -80,9 +80,9 @@
           <img
             ngSrc="/images/icons/settings.svg"
             alt="Settings"
-            class="w-10 h-10 transition-all duration-300 hover:brightness-125"
-            height="24"
-            width="24"
+            class="w-8 h-8 transition-all duration-300 hover:brightness-125"
+            height="32"
+            width="32"
           />
         </button>
       } @else {
@@ -95,9 +95,9 @@
             <img
               ngSrc="/images/icons/settings.svg"
               alt="Settings"
-              class="w-10 h-10 transition-all duration-300 hover:brightness-125"
-              height="24"
-              width="24"
+              class="w-8 h-8 transition-all duration-300 hover:brightness-125"
+              height="32"
+              width="32"
             />
           </button>
 
@@ -163,10 +163,10 @@
       >
         <img
           class="w-8 h-8 transition-all duration-300 hover:brightness-125"
-          height="24"
-          width="24"
-          alt="DarkMode"
+          height="32"
+          width="32"
           [ngSrc]="darkMode ? '/images/icons/light.svg' : '/images/icons/moon.svg'"
+          alt="DarkMode"
         />
       </button>
       <button
@@ -178,8 +178,8 @@
           ngSrc="/images/icons/settings.svg"
           alt="Settings"
           class="w-8 h-8 transition-all duration-300 hover:brightness-125"
-          height="24"
-          width="24"
+          height="32"
+          width="32"
         />
       </button>
       <button
@@ -255,7 +255,7 @@
           variant="accent"
           [title]="'Réservez votre appel'"
           [type]="'button'"
-          [img]="'/images/mobile/phone.svg'"
+          [img]="'/images/icons/phone.svg'"
           (click)="onCallClick()"
         />
       </div>
