@@ -5,10 +5,12 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
   selector: 'app-charts-filter',
   imports: [ReactiveFormsModule],
   template: `
-    <div class="flex gap-4 items-center mb-4">
+    <div class="flex flex-wrap gap-4 items-center mb-6">
       <select
         [formControl]="periodControl"
-        class="px-4 py-2 rounded-lg bg-background/90 backdrop-blur-md border-2 border-tertiary/20 focus:border-tertiary/60 outline-none"
+        class="px-4 py-2.5 rounded-lg bg-background/80 backdrop-blur-md border-2 border-tertiary/20 
+        focus:border-tertiary/60 outline-none text-text transition-colors duration-200 
+        hover:border-tertiary/40"
       >
         <option value="day">Jour</option>
         <option value="week">Semaine</option>
@@ -19,10 +21,13 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
       <input
         type="date"
         [formControl]="dateControl"
-        class="px-4 py-2 rounded-lg bg-background/90 backdrop-blur-md border-2 border-tertiary/20 focus:border-tertiary/60 outline-none"
+        class="px-4 py-2.5 rounded-lg bg-background/80 backdrop-blur-md border-2 border-tertiary/20 
+        focus:border-tertiary/60 outline-none text-text transition-colors duration-200 
+        hover:border-tertiary/40"
       />
     </div>
-  `
+  `,
+  standalone: true
 })
 export class ChartsFilterDumbComponent {
   private fb = inject(FormBuilder);
