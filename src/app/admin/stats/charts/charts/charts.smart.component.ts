@@ -9,10 +9,14 @@ import { ChartsDumbComponent } from './charts.dumb.component';
   imports: [ChartsDumbComponent, ChartsFilterDumbComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="container mx-auto px-4 py-12">
-      <div class="bg-background/60 backdrop-blur-lg rounded-xl border border-tertiary/20 p-6">
+    <div class="container mx-auto px-4 py-8">
+      <div
+        class="bg-background/60 backdrop-blur-lg rounded-xl border border-tertiary/20 p-6 
+          shadow-lg hover:shadow-xl transition-all duration-300"
+      >
+        <h2 class="text-xl font-semibold mb-6 text-text">Statistiques des visites</h2>
         <app-charts-filter (filterChange)="onFilterChange($event)" />
-        <app-charts-dumb [chartData]="statsService.getWeeklyStats()" />
+        <app-charts-dumb [chartData]="statsService.weeklyStats()" />
       </div>
     </div>
   `

@@ -34,14 +34,60 @@ export class StatsService {
       {
         label: 'Visites',
         data: this.currentStats().data.values,
-        backgroundColor: 'rgba(59, 130, 246, 0.5)',
-        borderColor: 'rgb(59, 130, 246)',
-        borderWidth: 2,
-        hoverBackgroundColor: 'rgba(99, 102, 241, 0.7)',
-        hoverBorderColor: 'rgb(99, 102, 241)',
-        borderRadius: 4
+        backgroundColor: '#ffd700',
+        borderColor: '#ffd700',
+        borderWidth: 1,
+        hoverBackgroundColor: '#ffed4a',
+        hoverBorderColor: '#ffd700',
+        borderRadius: 8,
+        tension: 0.2
       }
-    ]
+    ],
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: {
+            color: 'rgba(var(--color-tertiary), 0.1)',
+            drawBorder: false,
+            drawTicks: false
+          },
+          ticks: {
+            color: 'rgb(var(--color-tertiary))',
+            font: {
+              size: 12
+            },
+            padding: 8
+          }
+        },
+        x: {
+          grid: {
+            display: false
+          },
+          ticks: {
+            color: 'rgb(var(--color-tertiary))',
+            font: {
+              size: 12
+            },
+            padding: 8
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          backgroundColor: 'rgba(var(--color-background), 0.8)',
+          titleColor: 'rgb(var(--color-tertiary))',
+          bodyColor: 'rgb(var(--color-tertiary))',
+          padding: 12,
+          cornerRadius: 8,
+          displayColors: false
+        }
+      }
+    }
   }));
 
   getStats(period: 'day' | 'week' | 'month' | 'year', startDate?: Date): Observable<VisitStats> {
