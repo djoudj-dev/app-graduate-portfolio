@@ -30,9 +30,8 @@
       @for (item of navigationItems(); track item.href) {
         <li class="group">
           <a
-            routerLinkActive="font-bold"
-            class="text-xl font-bold text-white/80 hover:text-[#ffd700] transition-all duration-300 relative"
-            [routerLink]="item.href"
+            (click)="scrollToSection(item.href.split('#')[1])"
+            class="text-xl font-bold text-white/80 hover:text-[#ffd700] transition-all duration-300 relative cursor-pointer"
           >
             {{ item.label }}
             <span
@@ -213,37 +212,29 @@
       <ul class="w-full max-w-sm space-y-2">
         <li class="p-4">
           <a
-            routerLink="/home#about"
-            routerLinkActive="font-bold"
-            class="block w-full text-lg hover:text-tertiary transition-all duration-300"
-            (click)="toggleMenu()"
+            (click)="scrollToSection('about')"
+            class="block w-full text-lg hover:text-tertiary transition-all duration-300 cursor-pointer"
             >À propos</a
           >
         </li>
         <li class="p-4">
           <a
-            routerLink="/home#skills"
-            routerLinkActive="font-bold"
-            class="block w-full text-lg hover:text-tertiary transition-all duration-300"
-            (click)="toggleMenu()"
+            (click)="scrollToSection('skills')"
+            class="block w-full text-lg hover:text-tertiary transition-all duration-300 cursor-pointer"
             >Skills</a
           >
         </li>
         <li class="p-4">
           <a
-            routerLink="/home#projects"
-            routerLinkActive="font-bold"
-            class="block w-full text-lg hover:text-tertiary transition-all duration-300"
-            (click)="toggleMenu()"
+            (click)="scrollToSection('projects')"
+            class="block w-full text-lg hover:text-tertiary transition-all duration-300 cursor-pointer"
             >Projets</a
           >
         </li>
         <li class="p-4">
           <a
-            routerLink="/home#contact"
-            routerLinkActive="font-bold"
-            class="block w-full text-lg hover:text-tertiary transition-all duration-300"
-            (click)="toggleMenu()"
+            (click)="scrollToSection('contact')"
+            class="block w-full text-lg hover:text-tertiary transition-all duration-300 cursor-pointer"
             >Contact</a
           >
         </li>
