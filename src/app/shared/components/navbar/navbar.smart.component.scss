@@ -1,0 +1,8 @@
+:host {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; // Pour tenir compte de la hauteur de la navbar
+}
+
+a {
+  -webkit-tap-highlight-color: transparent;
+}

@@ -1,10 +1,12 @@
 import { NgClass, NgOptimizedImage } from '@angular/common';
 import { Component, HostListener, signal } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CountersService } from '../../../admin/stats/counters/services/counters.service';
 import { LoginSmartComponent } from '../../../auth/components/login/login.smart.component';
 import { AuthService } from '../../../auth/services/auth.service';
 import { ButtonDumbComponent } from '../../../shared/components/button/button.dumb.component';
+import { ScrollService } from '../../services/scroll.service';
+
 interface NavigationItem {
   href: string;
   label: string;
@@ -15,14 +17,7 @@ interface NavigationItem {
   templateUrl: './navbar.smart.component.html',
   styleUrl: './navbar.smart.component.scss',
   standalone: true,
-  imports: [
-    RouterLink,
-    RouterLinkActive,
-    NgOptimizedImage,
-    NgClass,
-    ButtonDumbComponent,
-    LoginSmartComponent
-  ]
+  imports: [RouterLink, NgOptimizedImage, NgClass, ButtonDumbComponent, LoginSmartComponent]
 })
 export class NavbarSmartComponent {
   menuIsOpen = false;
@@ -45,7 +40,8 @@ export class NavbarSmartComponent {
   constructor(
     private router: Router,
     readonly authService: AuthService,
-    readonly countersService: CountersService
+    readonly countersService: CountersService,
+    private scrollService: ScrollService
   ) {}
 
   toggleMenu() {
@@ -82,6 +78,12 @@ export class NavbarSmartComponent {
   navigateToDashboard() {
     this.router.navigate(['/admin/dashboard']);
     this.settingsMenuOpen = false;
+  }
+
+  scrollToSection(sectionId: string): void {
+    const cleanId = sectionId.replace('home#', '');
+    this.scrollService.scrollToElement(cleanId);
+    this.menuIsOpen = false;
   }
 
   // Ajout du gestionnaire d'événements pour fermer le menu en cliquant en dehors
