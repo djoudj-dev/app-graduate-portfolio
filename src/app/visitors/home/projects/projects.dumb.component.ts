@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
-import { ProjectsService } from './services/projects.service';
+import { ProjectsService } from '../../../core/services/projects.service';
 
 @Component({
   selector: 'app-projects',

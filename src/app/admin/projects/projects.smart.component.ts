@@ -1,8 +1,8 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ProjectsService } from '../../core/services/projects.service';
 import { Project } from '../../visitors/home/projects/models/project.model';
-import { ProjectsService } from '../../visitors/home/projects/services/projects.service';
 import { ProjectsListComponent } from './projects-list.component';
 
 @Component({
