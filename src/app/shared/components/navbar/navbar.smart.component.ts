@@ -16,7 +16,6 @@ interface NavigationItem {
   selector: 'app-navbar',
   templateUrl: './navbar.smart.component.html',
   styleUrl: './navbar.smart.component.scss',
-  standalone: true,
   imports: [RouterLink, NgOptimizedImage, NgClass, ButtonDumbComponent, LoginSmartComponent]
 })
 export class NavbarSmartComponent {
