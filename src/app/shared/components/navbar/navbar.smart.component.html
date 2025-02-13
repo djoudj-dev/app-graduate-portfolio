@@ -257,6 +257,6 @@
   <app-login
     [isOpen]="loginModalOpen"
     (isOpenChange)="loginModalOpen = $event"
-    (loginSuccess)="authService.login('', '')"
+    (loginSuccess)="authService.login($event.email, $event.password)"
   />
 </nav>

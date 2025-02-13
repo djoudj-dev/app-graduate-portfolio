@@ -1,33 +1,38 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnDestroy, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
   imports: [NgClass, ReactiveFormsModule],
   templateUrl: './login.smart.component.html',
   styleUrl: './login.smart.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginSmartComponent {
-  @Input() isOpen = false;
-  @Output() isOpenChange = new EventEmitter<boolean>();
-  @Output() loginSuccess = new EventEmitter<void>();
+export class LoginSmartComponent implements OnDestroy {
+  isOpen = input.required<boolean>();
+  isOpenChange = output<boolean>();
+  loginSuccess = output<{ email: string; password: string }>();
 
-  protected loginForm: FormGroup;
+  protected loginForm!: FormGroup;
   protected isSubmitting = false;
   protected showPassword = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService
-  ) {
-    this.loginForm = this.fb.group({
+  constructor(private fb: FormBuilder) {
+    this.initForm();
+  }
+
+  private initForm(): void {
+    this.loginForm = this.fb.nonNullable.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
+  }
+
+  ngOnDestroy() {
+    if (this.loginForm) {
+      this.loginForm.reset();
+    }
   }
 
   protected isFieldInvalid(field: string): boolean {
@@ -39,8 +44,7 @@ export class LoginSmartComponent {
     this.showPassword = !this.showPassword;
   }
 
-  protected closeModal(): void {
-    this.isOpen = false;
+  protected onClose(): void {
     this.isOpenChange.emit(false);
   }
 
@@ -49,9 +53,8 @@ export class LoginSmartComponent {
       this.isSubmitting = true;
       try {
         const { email, password } = this.loginForm.value;
-        await this.authService.login(email, password);
-        this.loginSuccess.emit();
-        this.closeModal();
+        this.loginSuccess.emit({ email, password });
+        this.onClose();
         this.loginForm.reset();
       } catch (error) {
         console.error('Error submitting form:', error);
