@@ -1,6 +1,14 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input, OnDestroy, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  OnDestroy,
+  output,
+  signal
+} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +21,16 @@ export class LoginSmartComponent implements OnDestroy {
   isOpen = input.required<boolean>();
   isOpenChange = output<boolean>();
   loginSuccess = output<{ email: string; password: string }>();
+  protected loginError = signal<string | null>(null);
 
   protected loginForm!: FormGroup;
   protected isSubmitting = false;
   protected showPassword = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService
+  ) {
     this.initForm();
   }
 
@@ -51,13 +63,18 @@ export class LoginSmartComponent implements OnDestroy {
   protected async onSubmit(): Promise<void> {
     if (this.loginForm.valid) {
       this.isSubmitting = true;
+      this.loginError.set(null);
+
       try {
-        const { email, password } = this.loginForm.value;
-        this.loginSuccess.emit({ email, password });
-        this.onClose();
-        this.loginForm.reset();
-      } catch (error) {
-        console.error('Error submitting form:', error);
+        const { email, password } = this.loginForm.getRawValue();
+        await this.authService.login(email, password);
+        this.isOpenChange.emit(false);
+      } catch (error: any) {
+        if (error.status === 401) {
+          this.loginError.set('Email ou mot de passe incorrect');
+        } else {
+          this.loginError.set('Une erreur est survenue, veuillez réessayer');
+        }
       } finally {
         this.isSubmitting = false;
       }

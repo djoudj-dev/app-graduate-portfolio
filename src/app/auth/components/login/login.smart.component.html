@@ -108,6 +108,13 @@
         }
       </div>
 
+      <!-- Message d'erreur -->
+      @if (loginError()) {
+        <div class="text-red-500 text-sm mt-2 text-center">
+          {{ loginError() }}
+        </div>
+      }
+
       <!-- Bouton de connexion -->
       <button
         type="submit"
