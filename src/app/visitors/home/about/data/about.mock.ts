@@ -2,8 +2,8 @@ import { About } from '../models/about.model';
 
 export const ABOUT_MOCK: About = {
   content: {
-    title: 'Nédellec Julien',
-    subtitle: "Concepteur & Développeur d'Applications Web | Angular & Node.js",
+    name: 'Nédellec Julien',
+    title: "Concepteur & Développeur d'Applications Web | Angular & Node.js",
     description:
       'Développeur web spécialisé en Angular et Node.js, je conçois et développe des solutions performantes, évolutives et adaptées aux besoins spécifiques de chaque projet.',
     quote:
