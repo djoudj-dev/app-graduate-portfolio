@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, output, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { About } from '../../visitors/home/about/models/about.model';
 
@@ -14,7 +14,7 @@ import { About } from '../../visitors/home/about/models/about.model';
         <h2 class="text-2xl font-bold text-text">Configuration About</h2>
       </div>
 
-      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mb-8">
+      <form class="mb-8" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div
           class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-background/90 p-6 rounded-lg border-2 border-tertiary/20"
         >
@@ -22,16 +22,37 @@ import { About } from '../../visitors/home/about/models/about.model';
           <div class="md:col-span-2">
             <h4 class="font-medium mb-4">Contenu principal</h4>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- Titre -->
+              <!-- Nom et prénom -->
+              <div class="relative group">
+                <input
+                  type="text"
+                  formControlName="name"
+                  class="w-full px-4 py-3 rounded-lg bg-background/90 border-2 border-tertiary/20 focus:border-tertiary/60 outline-none transition-all duration-300 text-text"
+                  required
+                  [ngClass]="{
+                    'border-red-500': form.get('name')?.invalid && form.get('name')?.touched
+                  }"
+                />
+                <label
+                  class="absolute left-4 top-3 text-text/50 transition-all duration-300 transform group-focus-within:-translate-y-[26px] group-focus-within:text-sm"
+                  [ngClass]="{ '!-translate-y-[26px] !text-sm': form.get('name')?.value }"
+                >
+                </label>
+                @if (form.get('name')?.invalid && form.get('name')?.touched) {
+                  <span class="text-red-500 text-sm mt-1">Le nom et prénom est requis</span>
+                }
+              </div>
+
+              <!-- Sous-titre -->
               <div class="relative group">
                 <input
                   type="text"
                   formControlName="title"
                   class="w-full px-4 py-3 rounded-lg bg-background/90 border-2 border-tertiary/20 focus:border-tertiary/60 outline-none transition-all duration-300 text-text"
+                  required
                   [ngClass]="{
                     'border-red-500': form.get('title')?.invalid && form.get('title')?.touched
                   }"
-                  required
                 />
                 <label
                   class="absolute left-4 top-3 text-text/50 transition-all duration-300 transform group-focus-within:-translate-y-[26px] group-focus-within:text-sm"
@@ -43,38 +64,17 @@ import { About } from '../../visitors/home/about/models/about.model';
                 }
               </div>
 
-              <!-- Sous-titre -->
-              <div class="relative group">
-                <input
-                  type="text"
-                  formControlName="subtitle"
-                  class="w-full px-4 py-3 rounded-lg bg-background/90 border-2 border-tertiary/20 focus:border-tertiary/60 outline-none transition-all duration-300 text-text"
-                  [ngClass]="{
-                    'border-red-500': form.get('subtitle')?.invalid && form.get('subtitle')?.touched
-                  }"
-                  required
-                />
-                <label
-                  class="absolute left-4 top-3 text-text/50 transition-all duration-300 transform group-focus-within:-translate-y-[26px] group-focus-within:text-sm"
-                  [ngClass]="{ '!-translate-y-[26px] !text-sm': form.get('subtitle')?.value }"
-                >
-                </label>
-                @if (form.get('subtitle')?.invalid && form.get('subtitle')?.touched) {
-                  <span class="text-red-500 text-sm mt-1">Le sous-titre est requis</span>
-                }
-              </div>
-
               <!-- Description -->
               <div class="relative group md:col-span-2">
                 <textarea
                   formControlName="description"
                   rows="4"
                   class="w-full px-4 py-3 rounded-lg bg-background/90 border-2 border-tertiary/20 focus:border-tertiary/60 outline-none transition-all duration-300 text-text resize-none"
+                  required
                   [ngClass]="{
                     'border-red-500':
                       form.get('description')?.invalid && form.get('description')?.touched
                   }"
-                  required
                 ></textarea>
                 <label
                   class="absolute left-4 top-3 text-text/50 transition-all duration-300 transform group-focus-within:-translate-y-[26px] group-focus-within:text-sm"
@@ -90,17 +90,17 @@ import { About } from '../../visitors/home/about/models/about.model';
 
           <!-- Section Citation -->
           <div class="md:col-span-2">
-            <h4 class="font-medium mb-4">Citation</h4>
+            <h4 class="font-medium mb-4">Parcours</h4>
             <div class="grid grid-cols-1 gap-6">
               <div class="relative group">
                 <textarea
                   formControlName="quote"
                   rows="2"
                   class="w-full px-4 py-3 rounded-lg bg-background/90 border-2 border-tertiary/20 focus:border-tertiary/60 outline-none transition-all duration-300 text-text resize-none"
+                  required
                   [ngClass]="{
                     'border-red-500': form.get('quote')?.invalid && form.get('quote')?.touched
                   }"
-                  required
                 ></textarea>
                 <label
                   class="absolute left-4 top-3 text-text/50 transition-all duration-300 transform group-focus-within:-translate-y-[26px] group-focus-within:text-sm"
@@ -117,11 +117,11 @@ import { About } from '../../visitors/home/about/models/about.model';
                   type="text"
                   formControlName="quoteFooter"
                   class="w-full px-4 py-3 rounded-lg bg-background/90 border-2 border-tertiary/20 focus:border-tertiary/60 outline-none transition-all duration-300 text-text"
+                  required
                   [ngClass]="{
                     'border-red-500':
                       form.get('quoteFooter')?.invalid && form.get('quoteFooter')?.touched
                   }"
-                  required
                 />
                 <label
                   class="absolute left-4 top-3 text-text/50 transition-all duration-300 transform group-focus-within:-translate-y-[26px] group-focus-within:text-sm"
@@ -147,16 +147,16 @@ import { About } from '../../visitors/home/about/models/about.model';
                   <label class="block text-sm font-medium text-text/50 mb-1"></label>
                   <div class="flex items-center gap-2">
                     <input
+                      #fileInput
                       type="file"
-                      (change)="onFileSelected($event)"
                       accept=".pdf"
                       class="hidden"
-                      #fileInput
+                      (change)="onFileSelected($event)"
                     />
                     <button
                       type="button"
-                      (click)="fileInput.click()"
                       class="px-4 py-2 bg-tertiary/10 hover:bg-tertiary/20 text-text rounded transition-all duration-300"
+                      (click)="fileInput.click()"
                     >
                       Choisir un fichier
                     </button>
@@ -173,11 +173,11 @@ import { About } from '../../visitors/home/about/models/about.model';
                   type="url"
                   formControlName="githubUrl"
                   class="w-full px-4 py-3 rounded-lg bg-background/90 border-2 border-tertiary/20 focus:border-tertiary/60 outline-none transition-all duration-300 text-text"
+                  required
                   [ngClass]="{
                     'border-red-500':
                       form.get('githubUrl')?.invalid && form.get('githubUrl')?.touched
                   }"
-                  required
                 />
                 <label
                   class="absolute left-4 top-3 text-text/50 transition-all duration-300 transform group-focus-within:-translate-y-[26px] group-focus-within:text-sm"
@@ -192,8 +192,8 @@ import { About } from '../../visitors/home/about/models/about.model';
           <div class="md:col-span-2 flex justify-end">
             <button
               type="submit"
-              [disabled]="form.invalid || isSubmitting"
               class="px-6 py-2 bg-tertiary text-text rounded-lg hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:transform-none"
+              [disabled]="form.invalid || isSubmitting"
             >
               @if (isSubmitting) {
                 <span class="flex items-center gap-2">
@@ -205,12 +205,12 @@ import { About } from '../../visitors/home/about/models/about.model';
                       r="10"
                       stroke="currentColor"
                       stroke-width="4"
-                    ></circle>
+                    />
                     <path
                       class="opacity-75"
                       fill="currentColor"
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                    ></path>
+                    />
                   </svg>
                   Mise à jour en cours...
                 </span>
@@ -225,7 +225,7 @@ import { About } from '../../visitors/home/about/models/about.model';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AboutDumbComponent {
+export class AboutDumbComponent implements OnInit {
   private fb = inject(FormBuilder);
 
   about = input<About>();
@@ -236,8 +236,8 @@ export class AboutDumbComponent {
   protected isSubmitting = false;
 
   protected form = this.fb.group({
+    name: ['', [Validators.required]],
     title: ['', [Validators.required]],
-    subtitle: ['', [Validators.required]],
     description: ['', [Validators.required]],
     quote: ['', [Validators.required]],
     quoteFooter: ['', [Validators.required]],
@@ -248,8 +248,8 @@ export class AboutDumbComponent {
   ngOnInit() {
     if (this.about()) {
       this.form.patchValue({
+        name: this.about()?.content.name,
         title: this.about()?.content.title,
-        subtitle: this.about()?.content.subtitle,
         description: this.about()?.content.description,
         quote: this.about()?.content.quote,
         quoteFooter: this.about()?.content.quoteFooter,
@@ -266,8 +266,8 @@ export class AboutDumbComponent {
 
       const updatedAbout: About = {
         content: {
+          name: formValue.name || '',
           title: formValue.title || '',
-          subtitle: formValue.subtitle || '',
           description: formValue.description || '',
           quote: formValue.quote || '',
           quoteFooter: formValue.quoteFooter || '',

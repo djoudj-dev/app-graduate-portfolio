@@ -11,7 +11,7 @@
   /* Couleur dorée clinquante */
   --color-tertiary: oklch(75% 0.2 80); /* Une teinte dorée/orangée vibrante */
 
-  --font-display: 'Noto Sans Tamil Supplement', 'sans-serif';
+  --font-display: 'Inter', 'sans-serif'; /* Police moderne */
 
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --transition-duration: 300ms;
@@ -19,12 +19,14 @@
 }
 
 .dark {
-  /* Mode sombre style GitHub */
+  /* Mode sombre style GitHub avec des teintes dorées */
   --color-text: oklch(95% 0.005 250); /* #c9d1d9 - Texte GitHub */
   --color-background: oklch(18% 0.01 250); /* #0d1117 - Fond GitHub */
-  --color-primary: oklch(35% 0.1 250); /* #21262d - Primaire GitHub */
-  --color-secondary: oklch(25% 0.05 250); /* #161b22 - Secondaire GitHub */
-  --color-accent: oklch(55% 0.15 250); /* #58a6ff - Accent GitHub */
-  /* Version dorée plus brillante pour le mode sombre */
-  --color-tertiary: oklch(80% 0.25 85); /* Plus lumineux pour ressortir dans le mode sombre */
+  --color-primary: oklch(0.235 0 89.876); /* #21262d - Primaire GitHub */
+  --color-secondary: oklch(0.366 0.003 228.866); /* #161b22 - Secondaire GitHub */
+  --color-accent: oklch(75% 0.2 80); /* Doré pour les éléments interactifs */
+  /* Couleur tertiaire dorée pour les éléments accentués */
+  --color-tertiary: oklch(80% 0.25 85); /* Doré lumineux pour ressortir */
+
+  --font-display: 'Inter', 'sans-serif'; /* Police moderne */
 }
