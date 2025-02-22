@@ -1,7 +1,7 @@
 export interface About {
   content: {
+    name: string;
     title: string;
-    subtitle: string;
     description: string;
     quote: string;
     quoteFooter: string;
