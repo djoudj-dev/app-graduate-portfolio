@@ -4,102 +4,124 @@
   <!-- Image -->
   <img
     alt="Photo de profil"
-    priority
     width="400"
     height="400"
     class="w-32 sm:w-40 md:w-48 lg:w-56 h-auto rounded-full object-cover shadow-xs border-2 border-secondary"
-    [ngSrc]="profileImage()"
+    [src]="_about()?.profileImage || 'assets/images/profile-placeholder.jpg'"
   />
 
   <!-- Informations -->
   <div class="flex-1 text-center sm:text-left">
     <h2 class="text-white font-semibold text-2xl sm:text-4xl md:text-5xl lg:text-6xl">
-      {{ content().name }}
+      {{ _about()?.name }}
     </h2>
     <p class="text-gray-300 text-base sm:text-lg md:text-xl lg:text-2xl py-3">
-      {{ content().title }}
+      {{ _about()?.title }}
     </p>
-    <p class="text-white text-sm sm:text-base md:text-lg mb-4">
-      {{ content().description }}
+    <p class="text-gray-200 text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl">
+      {{ _about()?.description }}
     </p>
-    <div class="flex justify-center sm:justify-start gap-2">
-      <app-button
-        class="!text-sm sm:!text-base"
-        [variant]="cvButton().variant"
-        [title]="cvButton().title"
-        [type]="cvButton().type"
-        [img]="cvButton().img"
-        (clicked)="onDownloadCV()"
-      />
-      <app-button
-        class="!text-sm sm:!text-base"
-        [variant]="githubButton().variant"
-        [title]="githubButton().title"
-        [type]="githubButton().type"
-        [img]="githubButton().img"
-        (clicked)="onOpenGitHub()"
-      />
+
+    <!-- Boutons -->
+    <div class="flex flex-wrap justify-center sm:justify-start gap-4 mt-6">
+      @if (_about()?.cvLink) {
+        <app-button
+          [variant]="cvButton().variant"
+          [title]="cvButton().title"
+          [type]="cvButton().type"
+          [img]="cvButton().img"
+          (click)="onDownloadCV()"
+        />
+      }
+      @if (_about()?.githubLink) {
+        <app-button
+          [variant]="githubButton().variant"
+          [title]="githubButton().title"
+          [type]="githubButton().type"
+          [img]="githubButton().img"
+          (click)="onOpenGitHub()"
+        />
+      }
+      @if (_about()?.linkedinLink) {
+        <app-button
+          [variant]="linkedinButton().variant"
+          [title]="linkedinButton().title"
+          [type]="linkedinButton().type"
+          [img]="linkedinButton().img"
+          (click)="onOpenLinkedIn()"
+        />
+      }
     </div>
   </div>
 </div>
 
-<div class="container mx-auto mt-12 px-6 relative">
-  <!-- Conteneur flex pour les cartes -->
-  <div class="flex flex-col md:flex-row gap-8">
-    <!-- Blockquote (3/4) -->
-    <blockquote
-      class="w-full md:w-3/4 relative p-8 md:p-12 rounded-lg bg-background/90 backdrop-blur-md border-2 border-tertiary/20 shadow-lg transform hover:-translate-y-1 transition-all duration-[--transition-duration] ease-[--ease-in-out]"
-    >
-      <!-- Icône de guillemets stylisée -->
-      <svg
-        class="absolute text-tertiary/20 w-16 h-16 -top-6 -left-6 transform -rotate-12 animate-pulse"
-        fill="currentColor"
-        viewBox="0 0 24 24"
+@if (_about()?.quote) {
+  <div class="container mx-auto mt-12 px-6 relative">
+    <!-- Conteneur flex pour les cartes -->
+    <div class="flex flex-col md:flex-row gap-8">
+      <!-- Blockquote (3/4) -->
+      <blockquote
+        class="w-full md:w-3/4 relative p-8 md:p-12 rounded-lg bg-background/90 backdrop-blur-md border-2 border-tertiary/20 shadow-lg transform hover:-translate-y-1 transition-all duration-[--transition-duration] ease-[--ease-in-out]"
       >
-        <path
-          d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"
-        />
-      </svg>
+        <!-- Icône de guillemets stylisée -->
+        <svg
+          class="absolute text-tertiary/20 w-16 h-16 -top-6 -left-6 transform -rotate-12 animate-pulse"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"
+          />
+        </svg>
 
-      <!-- Texte avec style amélioré -->
-      <p class="text-lg md:text-xl lg:text-2xl text-text leading-relaxed relative z-10">
-        <span class="text-tertiary font-semibold">"</span>
-        {{ content().quote }}
-        <span class="text-tertiary font-semibold">"</span>
-      </p>
+        <!-- Texte avec style amélioré -->
+        <p class="text-lg md:text-xl lg:text-2xl text-text leading-relaxed relative z-10">
+          <span class="text-tertiary font-semibold">"</span>
+          {{ _about()?.quote }}
+          <span class="text-tertiary font-semibold">"</span>
+        </p>
 
-      <!-- Signature -->
-      <footer class="mt-4 text-right text-sm md:text-base text-text/70 italic">
-        - {{ content().quoteFooter }}
-      </footer>
-    </blockquote>
-
-    <!-- Carte savoir-être (1/4) -->
-    <div
-      class="w-full md:w-1/4 relative p-8 md:p-12 rounded-lg bg-background/90 backdrop-blur-md border-2 border-tertiary/20 shadow-lg transform hover:-translate-y-1 transition-all duration-[--transition-duration] ease-[--ease-in-out]"
-    >
-      <svg
-        class="absolute text-tertiary/20 w-16 h-16 -top-6 -right-6 transform rotate-12 animate-pulse"
-        fill="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z M11 7h2v2h-2zm0 4h2v6h-2z"
-        />
-      </svg>
-
-      <h3 class="text-xl md:text-2xl font-semibold text-tertiary mb-4">
-        {{ content().softSkillsTitle }}
-      </h3>
-
-      <ul class="space-y-3">
-        @for (skill of content().softSkills; track skill) {
-          <li class="flex items-center text-text">
-            <span class="text-tertiary mr-2">•</span>
-            {{ skill }}
-          </li>
+        <!-- Signature -->
+        @if (_about()?.quoteFooter) {
+          <footer class="mt-4 text-right text-sm md:text-base text-text/70 italic">
+            - {{ _about()?.quoteFooter }}
+          </footer>
         }
-      </ul>
+      </blockquote>
+
+      <!-- Carte savoir-être (1/4) -->
+      @if (
+        _about()?.softSkillsTitle &&
+        _about()?.soft_skills &&
+        (_about()?.soft_skills?.length ?? 0) > 0
+      ) {
+        <div
+          class="w-full md:w-1/4 relative p-8 md:p-12 rounded-lg bg-background/90 backdrop-blur-md border-2 border-tertiary/20 shadow-lg transform hover:-translate-y-1 transition-all duration-[--transition-duration] ease-[--ease-in-out]"
+        >
+          <svg
+            class="absolute text-tertiary/20 w-16 h-16 -top-6 -right-6 transform rotate-12 animate-pulse"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z M11 7h2v2h-2zm0 4h2v6h-2z"
+            />
+          </svg>
+
+          <h3 class="text-xl md:text-2xl font-semibold text-tertiary mb-4">
+            {{ _about()?.softSkillsTitle }}
+          </h3>
+
+          <ul class="space-y-3">
+            @for (skill of _about()?.soft_skills; track skill) {
+              <li class="flex items-center text-text">
+                <span class="text-tertiary mr-2">•</span>
+                {{ skill }}
+              </li>
+            }
+          </ul>
+        </div>
+      }
     </div>
   </div>
-</div>
+}

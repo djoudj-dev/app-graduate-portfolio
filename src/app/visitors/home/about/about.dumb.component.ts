@@ -1,48 +1,59 @@
-import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { CountersService } from '../../../admin/stats/counters/services/counters.service';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
+import { About } from '../../../admin/about/models/about.model';
 import { ButtonDumbComponent } from '../../../shared/components/button/button.dumb.component';
-import { AboutService } from './services/about.service';
 
 @Component({
-  selector: 'app-about',
-  imports: [NgOptimizedImage, ButtonDumbComponent],
+  selector: 'app-about-dumb',
+  standalone: true,
+  imports: [CommonModule, ButtonDumbComponent],
   templateUrl: './about.dumb.component.html',
-  styleUrl: './about.dumb.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AboutDumbComponent {
-  private readonly aboutService = inject(AboutService);
-  private readonly about = this.aboutService.getAbout();
-  private readonly countersService = inject(CountersService);
-  // Computed signals basés sur about
-  protected readonly content = computed(() => this.about().content);
-  protected readonly socialLinks = computed(() => this.about().socialLinks);
-  protected readonly profileImage = computed(() => this.about().profileImage);
-
-  // Computed signals pour les boutons
-  protected readonly cvButton = computed(() => ({
-    variant: 'secondary' as const,
-    title: 'Télécharger mon CV',
-    type: 'button' as const,
-    img: '/images/icons/download.svg'
-  }));
-
-  protected readonly githubButton = computed(() => ({
-    variant: 'accent' as const,
-    title: 'Mon GitHub',
-    type: 'button' as const,
-    img: '/images/icons/github.svg'
-  }));
-
-  // Méthodes pour gérer les clics
-  onDownloadCV(): void {
-    this.countersService.incrementCv();
-    window.open(this.socialLinks().cv, '_blank');
+  @Input() set about(value: About | null) {
+    this._about.set(value);
   }
 
-  onOpenGitHub(): void {
-    this.countersService.incrementGithub();
-    window.open(this.socialLinks().github, '_blank');
+  protected readonly _about = signal<About | null>(null);
+
+  // Configuration des boutons
+  protected readonly cvButton = signal({
+    variant: 'secondary' as const,
+    title: 'Télécharger CV',
+    type: 'button' as const,
+    img: '/images/icons/download.svg'
+  });
+
+  protected readonly githubButton = signal({
+    variant: 'accent' as const,
+    title: 'GitHub',
+    type: 'button' as const,
+    img: '/images/icons/github.svg'
+  });
+
+  protected readonly linkedinButton = signal({
+    variant: 'primary' as const,
+    title: 'LinkedIn',
+    type: 'button' as const,
+    img: '/images/icons/linkedin.svg'
+  });
+
+  protected onDownloadCV(): void {
+    if (this._about()?.cvLink) {
+      window.open(this._about()!.cvLink, '_blank');
+    }
+  }
+
+  protected onOpenGitHub(): void {
+    if (this._about()?.githubLink) {
+      window.open(this._about()!.githubLink, '_blank');
+    }
+  }
+
+  protected onOpenLinkedIn(): void {
+    if (this._about()?.linkedinLink) {
+      window.open(this._about()!.linkedinLink, '_blank');
+    }
   }
 }
