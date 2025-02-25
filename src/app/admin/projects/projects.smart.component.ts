@@ -1,8 +1,10 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ProjectsService } from '../../core/services/projects.service';
-import { Project } from '../../visitors/home/projects/models/project.model';
+import { ToastService } from '../../shared/components/toast/service/toast.service';
+import { ProjectFormConfig } from './data/project-form.config';
+import { Project } from './models/project.model';
 import { ProjectsListComponent } from './projects-list.component';
 
 @Component({
@@ -16,34 +18,13 @@ import { ProjectsListComponent } from './projects-list.component';
 export class ProjectsSmartComponent {
   private readonly projectsService = inject(ProjectsService);
   private readonly fb = inject(FormBuilder);
+  private readonly toastService = inject(ToastService);
 
   protected readonly projects = computed(() => this.projectsService.getProjects()() || []);
-  protected projectForm = this.fb.group({
-    title: ['', [Validators.required]],
-    description: ['', [Validators.required, Validators.minLength(10)]],
-    image: ['', [Validators.required]],
-    technologies: ['', [Validators.required]],
-    githubUrl: [''],
-    demoUrl: ['']
-  });
+  protected projectForm = ProjectFormConfig.getFormGroup(this.fb);
   protected showForm = false;
   protected isSubmitting = false;
   protected editingProject: Project | null = null;
-
-  constructor() {
-    this.initForm();
-  }
-
-  private initForm(project?: Project): void {
-    this.projectForm = this.fb.group({
-      title: [project?.title || '', [Validators.required]],
-      description: [project?.description || '', [Validators.required, Validators.minLength(10)]],
-      image: [project?.image || '', [Validators.required]],
-      technologies: [project?.technologies.join(', ') || '', [Validators.required]],
-      githubUrl: [project?.githubUrl || ''],
-      demoUrl: [project?.demoUrl || '']
-    });
-  }
 
   protected isFieldInvalid(field: string): boolean {
     const formField = this.projectForm.get(field);
@@ -53,7 +34,7 @@ export class ProjectsSmartComponent {
   protected openProjectForm(): void {
     this.showForm = true;
     this.editingProject = null;
-    this.initForm();
+    this.projectForm = ProjectFormConfig.getFormGroup(this.fb);
   }
 
   protected cancelForm(): void {
@@ -65,40 +46,47 @@ export class ProjectsSmartComponent {
   protected onEditProject(project: Project): void {
     this.editingProject = project;
     this.showForm = true;
-    this.initForm(project);
+    this.projectForm = ProjectFormConfig.getFormGroup(this.fb, project);
   }
 
   protected onDeleteProject(projectId: number): void {
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')) {
-      this.projectsService.deleteProject(projectId);
-    }
+    this.toastService.showConfirm(
+      'Êtes-vous sûr de vouloir supprimer ce projet ?',
+      async () => {
+        try {
+          await this.projectsService.deleteProject(projectId);
+          this.toastService.showSuccess('Le projet a été supprimé avec succès !');
+        } catch (error) {
+          console.error('Erreur lors de la suppression:', error);
+          this.toastService.showError(
+            'Erreur lors de la suppression du projet. Veuillez réessayer.'
+          );
+        }
+      },
+      () => {}
+    );
   }
 
   protected async onSubmit(): Promise<void> {
     if (this.projectForm.valid) {
       this.isSubmitting = true;
       try {
-        const formData = this.projectForm.value;
-        const projectData = {
-          title: formData.title || '',
-          description: formData.description || '',
-          image: formData.image || '',
-          technologies: formData.technologies?.split(',').map((tech: string) => tech.trim()) || [],
-          githubUrl: formData.githubUrl || undefined,
-          demoUrl: formData.demoUrl || undefined
-        };
+        const projectData = ProjectFormConfig.mapFormDataToProject(this.projectForm.value);
 
         if (this.editingProject) {
-          // Mise à jour
-          this.projectsService.updateProject(this.editingProject.id, projectData);
+          await this.projectsService.updateProject(this.editingProject.id, projectData);
+          this.toastService.showSuccess('Le projet a été mis à jour avec succès !');
         } else {
-          // Création
-          this.projectsService.createProject(projectData);
+          await this.projectsService.createProject(projectData);
+          this.toastService.showSuccess('Le projet a été créé avec succès !');
         }
 
         this.cancelForm();
       } catch (error) {
         console.error('Erreur lors de la soumission:', error);
+        this.toastService.showError(
+          `Erreur lors de ${this.editingProject ? 'la mise à jour' : 'la création'} du projet. Veuillez réessayer.`
+        );
       } finally {
         this.isSubmitting = false;
       }

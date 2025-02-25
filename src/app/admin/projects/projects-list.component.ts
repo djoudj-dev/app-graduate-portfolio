@@ -1,6 +1,6 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, input, output } from '@angular/core';
-import { Project } from '../../visitors/home/projects/models/project.model';
+import { Project } from './models/project.model';
 
 @Component({
   selector: 'app-projects-list',
@@ -15,7 +15,7 @@ import { Project } from '../../visitors/home/projects/models/project.model';
               <th
                 class="px-6 py-4 text-left text-sm font-medium text-text/70 uppercase tracking-wider"
               >
-                ID
+                Image
               </th>
               <th
                 class="px-6 py-4 text-left text-sm font-medium text-text/70 uppercase tracking-wider"
@@ -42,17 +42,27 @@ import { Project } from '../../visitors/home/projects/models/project.model';
           <tbody>
             @for (project of projects(); track project.id) {
               <tr class="hover:bg-tertiary/5 transition-colors">
-                <td class="px-6 py-4 text-sm text-text whitespace-nowrap">{{ project.id }}</td>
+                <td class="px-6 py-4 text-sm text-text whitespace-nowrap">
+                  <div class="relative w-16 h-12 rounded-lg overflow-hidden">
+                    <img
+                      [ngSrc]="project.image_url"
+                      [alt]="project.title"
+                      fill
+                      class="object-cover"
+                      (error)="handleImageError($event)"
+                    />
+                  </div>
+                </td>
                 <td class="px-6 py-4 text-sm text-text">{{ project.title }}</td>
                 <td class="px-6 py-4 text-sm text-text">
-                  {{ project.description.slice(0, 100) }}...
+                  {{ project.description.slice(0, 100) || '' }}...
                 </td>
                 <td class="px-6 py-4">
                   <div class="flex flex-wrap gap-2">
                     @for (tech of project.technologies; track tech) {
                       <div class="flex items-center gap-1 px-2 py-1 rounded-full bg-tertiary/10">
                         <img
-                          ngSrc="/images/icons/{{ tech.toLowerCase() }}.svg"
+                          [ngSrc]="'/images/icons/' + tech.toLowerCase() + '.svg'"
                           [alt]="tech"
                           class="w-4 h-4"
                           width="16"
@@ -103,4 +113,9 @@ export class ProjectsListComponent {
   projects = input.required<Project[]>();
   editProject = output<Project>();
   deleteProject = output<number>();
+
+  protected handleImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    img.src = '/images/projects/placeholder.webp'; // Assurez-vous d'avoir une image par défaut
+  }
 }
