@@ -116,7 +116,6 @@ export class AuthService {
         this.userSignal.set(tokenData.user);
       }
 
-      console.log('Token récupéré avec succès:', tokenData.token.substring(0, 10) + '...');
       return tokenData.token;
     } catch (error) {
       console.error('Erreur lors de la récupération du token:', error);

@@ -14,7 +14,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const token = authService.getToken();
 
   if (token) {
-    console.log('Intercepteur - Ajout du token:', token.substring(0, 10) + '...');
     req = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`
@@ -22,7 +21,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       withCredentials: true
     });
   } else {
-    console.log('Intercepteur - Aucun token disponible');
     // Si la requête nécessite une authentification (vers /api/projects par exemple)
     // et qu'aucun token n'est disponible, on peut rediriger l'utilisateur
     if (req.url.includes('/projects') && req.method !== 'GET') {
