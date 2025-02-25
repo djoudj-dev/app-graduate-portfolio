@@ -10,7 +10,6 @@ import { ToastService } from './service/toast.service';
  */
 @Component({
   selector: 'app-toast',
-  standalone: true,
   imports: [CommonModule],
   template: `
     @if (visible) {

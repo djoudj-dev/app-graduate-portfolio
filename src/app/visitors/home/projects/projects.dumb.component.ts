@@ -16,7 +16,6 @@ import { ProjectsService } from '../../../core/services/projects.service';
 // Décorateur du composant avec ses métadonnées
 @Component({
   selector: 'app-projects', // Sélecteur utilisé pour intégrer le composant
-  standalone: true, // Composant autonome (nouvelle fonctionnalité Angular)
   imports: [NgOptimizedImage, ReactiveFormsModule], // Modules importés localement
   templateUrl: './projects.dumb.component.html', // Template HTML associé
   styleUrl: './projects.dumb.component.scss', // Styles SCSS associés

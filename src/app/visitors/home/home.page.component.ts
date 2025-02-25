@@ -6,7 +6,6 @@ import { ProjectsDumbComponent } from './projects/projects.dumb.component';
 import { SkillsDumbComponent } from './skills/skills.dumb.component';
 
 @Component({
-  standalone: true,
   imports: [AboutDumbComponent, ProjectsDumbComponent, ContactDumbComponent, SkillsDumbComponent],
   templateUrl: './home.page.component.html',
   styleUrl: './home.page.component.scss'

@@ -26,8 +26,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
         hover:border-tertiary/40"
       />
     </div>
-  `,
-  standalone: true
+  `
 })
 export class ChartsFilterDumbComponent {
   private fb = inject(FormBuilder);

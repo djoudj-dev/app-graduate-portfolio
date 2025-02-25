@@ -4,7 +4,6 @@ import { Project } from './models/project.model';
 
 @Component({
   selector: 'app-projects-list',
-  standalone: true,
   imports: [NgOptimizedImage],
   template: `
     <div class="bg-background/90 rounded-lg border border-tertiary/20">

@@ -7,7 +7,6 @@ import { CountersDumbComponent } from '../stats/counters/counters.dumb.component
 import { CountersService } from '../stats/counters/services/counters.service';
 
 @Component({
-  standalone: true,
   imports: [
     ProjectsSmartComponent,
     CountersDumbComponent,
