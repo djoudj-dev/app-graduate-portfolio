@@ -5,7 +5,6 @@ import { ChartsDumbComponent } from './charts.dumb.component';
 
 @Component({
   selector: 'app-charts-smart',
-  standalone: true,
   imports: [ChartsDumbComponent, ChartsFilterDumbComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `

@@ -4,7 +4,6 @@ import { Counters } from './models/counters.model';
 
 @Component({
   selector: 'app-counters-dumb',
-  standalone: true,
   imports: [NgOptimizedImage],
   template: `
     <div class="container mx-auto px-4 py-12">

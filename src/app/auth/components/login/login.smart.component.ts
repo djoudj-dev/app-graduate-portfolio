@@ -12,7 +12,6 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
   imports: [NgClass, ReactiveFormsModule],
   templateUrl: './login.smart.component.html',
   styleUrl: './login.smart.component.scss',

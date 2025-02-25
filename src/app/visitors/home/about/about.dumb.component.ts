@@ -5,7 +5,6 @@ import { ButtonDumbComponent } from '../../../shared/components/button/button.du
 
 @Component({
   selector: 'app-about-dumb',
-  standalone: true,
   imports: [CommonModule, ButtonDumbComponent],
   templateUrl: './about.dumb.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush

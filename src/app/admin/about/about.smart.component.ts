@@ -7,7 +7,6 @@ import { AboutFormConfig } from './data/about-form.config';
 
 @Component({
   selector: 'app-about-smart',
-  standalone: true,
   imports: [ReactiveFormsModule, NgClass, CommonModule],
   templateUrl: './about.smart.component.html',
   styleUrl: './about.smart.component.scss',

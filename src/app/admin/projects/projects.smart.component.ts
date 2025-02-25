@@ -9,7 +9,6 @@ import { ProjectsListComponent } from './projects-list.component';
 
 @Component({
   selector: 'app-projects',
-  standalone: true,
   imports: [NgClass, ReactiveFormsModule, ProjectsListComponent],
   templateUrl: './projects.smart.component.html',
   styleUrl: './projects.smart.component.scss',

@@ -4,7 +4,6 @@ import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-charts-dumb',
-  standalone: true,
   imports: [BaseChartDirective],
   template: `
     <div class="w-full h-[400px]">
