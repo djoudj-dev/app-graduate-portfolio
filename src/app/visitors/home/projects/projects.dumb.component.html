@@ -37,8 +37,11 @@
     </svg>
   </div>
 
-  <!-- Grille de projets avec message "aucun résultat" -->
-  @if (filteredProjects().length > 0) {
+  @if (isLoading()) {
+    <div class="flex justify-center items-center min-h-[200px]">
+      <span class="text-tertiary">Chargement des projets...</span>
+    </div>
+  } @else if (filteredProjects().length > 0) {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       @for (project of filteredProjects(); track project.id) {
         <div
@@ -47,11 +50,12 @@
           <!-- Image du projet (côté gauche) -->
           <div class="w-full md:w-2/5 relative aspect-[4/3] rounded-lg overflow-hidden">
             <img
-              [ngSrc]="project.image"
+              [ngSrc]="project.image_url"
               [alt]="project.title"
-              width="400"
-              height="300"
-              class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
+              fill
+              priority
+              (error)="handleImageError($event)"
+              class="w-full h-full object-cover object-center transform transition-transform duration-500 group-hover:scale-110"
             />
             <div
               class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -68,11 +72,12 @@
               @for (tech of project.technologies; track tech) {
                 <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-tertiary/10">
                   <img
-                    ngSrc="/images/icons/{{ tech.toLowerCase() }}.svg"
+                    [ngSrc]="'/images/icons/' + tech.toLowerCase() + '.svg'"
                     [alt]="tech"
                     class="w-4 h-4"
                     width="16"
                     height="16"
+                    (error)="handleImageError($event)"
                   />
                   <span class="text-sm text-text">{{ tech }}</span>
                 </div>
@@ -81,9 +86,9 @@
 
             <!-- Liens -->
             <div class="flex gap-4 mt-auto">
-              @if (project.demoUrl) {
+              @if (project.demo_url) {
                 <a
-                  [href]="project.demoUrl"
+                  [href]="project.demo_url"
                   target="_blank"
                   class="text-tertiary hover:text-text transition-colors duration-300 flex items-center gap-2"
                 >
@@ -97,9 +102,9 @@
                   Demo
                 </a>
               }
-              @if (project.githubUrl) {
+              @if (project.github_links) {
                 <a
-                  [href]="project.githubUrl"
+                  [href]="project.github_links"
                   target="_blank"
                   class="text-tertiary hover:text-text transition-colors duration-300 flex items-center gap-2"
                 >
@@ -110,7 +115,23 @@
                     width="20"
                     height="20"
                   />
-                  GitHub
+                  Dépôt
+                </a>
+              }
+              @if (project.secondary_github_links) {
+                <a
+                  [href]="project.secondary_github_links"
+                  target="_blank"
+                  class="text-tertiary hover:text-text transition-colors duration-300 flex items-center gap-2"
+                >
+                  <img
+                    ngSrc="/images/icons/github.svg"
+                    alt="GitHub"
+                    class="w-5 h-5"
+                    width="20"
+                    height="20"
+                  />
+                  Dépôt secondaire
                 </a>
               }
             </div>

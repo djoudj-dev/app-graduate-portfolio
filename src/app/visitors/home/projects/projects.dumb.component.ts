@@ -1,6 +1,13 @@
 // Importation des modules nécessaires
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  signal
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { startWith } from 'rxjs/operators';
@@ -18,6 +25,8 @@ import { ProjectsService } from '../../../core/services/projects.service';
 export class ProjectsDumbComponent {
   // Injection du service des projets
   private readonly projectsService = inject(ProjectsService);
+  protected readonly projects = this.projectsService.getProjects();
+  protected readonly isLoading = signal(true);
 
   // Contrôle de formulaire pour la recherche
   protected readonly searchControl = new FormControl('');
@@ -42,14 +51,31 @@ export class ProjectsDumbComponent {
         (project) =>
           project.title.toLowerCase().includes(term) ||
           project.description.toLowerCase().includes(term) ||
-          project.technologies.some((tech) => tech.toLowerCase().includes(term))
+          project.technologies.some((stack) => stack.toLowerCase().includes(term))
       )
       .sort((a, b) => b.id - a.id)
       .slice(0, 4);
   });
 
+  constructor() {
+    // Forcer un rafraîchissement au chargement du composant
+    this.projectsService.refresh();
+
+    // Mettre à jour l'état de chargement quand les projets changent
+    effect(() => {
+      if (this.projects()) {
+        this.isLoading.set(false);
+      }
+    });
+  }
+
   // Méthode pour réinitialiser la recherche
   clearSearch(): void {
     this.searchControl.setValue('');
+  }
+
+  protected handleImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    img.style.display = 'none';
   }
 }

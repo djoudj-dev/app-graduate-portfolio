@@ -40,18 +40,18 @@
         <div class="relative group">
           <input
             type="text"
-            formControlName="image"
+            formControlName="image_url"
             class="w-full px-4 py-3 rounded-lg bg-background/90 border-2 border-tertiary/20 focus:border-tertiary/60 outline-none transition-all duration-300 text-text"
             required
-            [ngClass]="{ 'border-red-500': isFieldInvalid('image') }"
+            [ngClass]="{ 'border-red-500': isFieldInvalid('image_url') }"
           />
           <label
             class="absolute left-4 top-3 text-text/50 transition-all duration-300 transform group-focus-within:-translate-y-[26px] group-focus-within:text-sm"
-            [ngClass]="{ '!-translate-y-[26px] !text-sm': projectForm.get('image')?.value }"
+            [ngClass]="{ '!-translate-y-[26px] !text-sm': projectForm.get('image_url')?.value }"
           >
             URL de l'image
           </label>
-          @if (isFieldInvalid('image')) {
+          @if (isFieldInvalid('image_url')) {
             <span class="text-red-500 text-sm mt-1">L'URL de l'image est requise</span>
           }
         </div>
@@ -108,6 +108,23 @@
             [ngClass]="{ '!-translate-y-[26px] !text-sm': projectForm.get('githubUrl')?.value }"
           >
             URL GitHub
+          </label>
+        </div>
+
+        <!-- URL GitHub secondaire -->
+        <div class="relative group">
+          <input
+            type="text"
+            formControlName="secondaryGithubUrl"
+            class="w-full px-4 py-3 rounded-lg bg-background/90 border-2 border-tertiary/20 focus:border-tertiary/60 outline-none transition-all duration-300 text-text"
+          />
+          <label
+            class="absolute left-4 top-3 text-text/50 transition-all duration-300 transform group-focus-within:-translate-y-[26px] group-focus-within:text-sm"
+            [ngClass]="{
+              '!-translate-y-[26px] !text-sm': projectForm.get('secondaryGithubUrl')?.value
+            }"
+          >
+            URL GitHub secondaire
           </label>
         </div>
 
