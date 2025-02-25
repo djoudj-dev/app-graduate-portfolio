@@ -7,7 +7,12 @@ import { ToastService } from '../../shared/components/toast/service/toast.servic
 
 interface LoginResponse {
   access_token: string;
-  // autres champs si nécessaire
+  user: {
+    id: number;
+    email: string;
+    roles?: string[];
+    // autres propriétés utilisateur
+  };
 }
 
 @Injectable({
@@ -15,6 +20,7 @@ interface LoginResponse {
 })
 export class AuthService {
   private readonly isAuthenticatedSignal = signal<boolean>(false);
+  private readonly userSignal = signal<any>(null);
   private readonly TOKEN_KEY = 'auth_token';
 
   constructor(
@@ -30,14 +36,13 @@ export class AuthService {
     if (tokenStr) {
       try {
         const tokenData = JSON.parse(tokenStr);
-        const isValid = tokenData.expiresAt > Date.now();
-        if (!isValid) {
+        // Vérifier si le token existe et n'est pas expiré
+        if (!tokenData.token || !tokenData.expiresAt || tokenData.expiresAt <= Date.now()) {
           this.logout();
           return;
         }
         this.isAuthenticatedSignal.set(true);
       } catch (error) {
-        // Si le token n'est pas un JSON valide, on le supprime
         this.logout();
       }
     } else {
@@ -46,19 +51,10 @@ export class AuthService {
   }
 
   login(email: string, password: string): Promise<void> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-
     const url = `${environment.apiUrl}/auth/login`;
-    console.log('URL de connexion:', url);
-    console.log('Données envoyées:', { email, password });
-
-    const payload = {
-      email,
-      password
-      // username: email  // Parfois le backend attend "username" au lieu de "email"
-    };
+    const payload = { email, password };
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    console.log('Données envoyées:', payload);
 
     return firstValueFrom(this.http.post<LoginResponse>(url, payload, { headers }))
       .then((response) => {
@@ -67,9 +63,11 @@ export class AuthService {
           console.log('Réponse du serveur:', response);
           const tokenData = {
             token: response.access_token,
-            expiresAt: Date.now() + 24 * 60 * 60 * 1000
+            expiresAt: Date.now() + 24 * 60 * 60 * 1000,
+            user: response.user
           };
           localStorage.setItem(this.TOKEN_KEY, JSON.stringify(tokenData));
+          this.userSignal.set(response.user);
           this.isAuthenticatedSignal.set(true);
           this.toastService.showAuthLogin('Connexion réussie !');
           this.router.navigate(['/admin/dashboard']);
@@ -87,11 +85,60 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.TOKEN_KEY);
     this.isAuthenticatedSignal.set(false);
+    this.userSignal.set(null);
     this.toastService.showAuthLogout('Déconnexion réussie !');
     this.router.navigate(['/']);
   }
 
   isAuthenticated(): boolean {
     return this.isAuthenticatedSignal();
+  }
+
+  getToken(): string | null {
+    try {
+      const tokenStr = localStorage.getItem(this.TOKEN_KEY);
+      if (!tokenStr) {
+        console.log('Aucun token trouvé dans le localStorage');
+        return null;
+      }
+
+      const tokenData = JSON.parse(tokenStr);
+
+      // Vérifier si le token existe et n'est pas expiré
+      if (!tokenData.token || !tokenData.expiresAt || tokenData.expiresAt <= Date.now()) {
+        console.log('Token expiré ou invalide, suppression...');
+        this.logout();
+        return null;
+      }
+
+      // Mettre à jour les informations utilisateur si disponibles
+      if (tokenData.user && !this.userSignal()) {
+        this.userSignal.set(tokenData.user);
+      }
+
+      console.log('Token récupéré avec succès:', tokenData.token.substring(0, 10) + '...');
+      return tokenData.token;
+    } catch (error) {
+      console.error('Erreur lors de la récupération du token:', error);
+      this.logout();
+      return null;
+    }
+  }
+
+  hasPermission(permission: string): boolean {
+    try {
+      const user = this.userSignal();
+      if (!user || !user.roles) return false;
+
+      // Vérifiez si l'utilisateur a le rôle requis
+      return user.roles.includes(permission);
+    } catch (error) {
+      console.error('Erreur lors de la vérification des permissions:', error);
+      return false;
+    }
+  }
+
+  getCurrentUser(): any {
+    return this.userSignal();
   }
 }

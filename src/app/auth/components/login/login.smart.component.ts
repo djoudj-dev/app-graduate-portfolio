@@ -12,13 +12,14 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [NgClass, ReactiveFormsModule],
   templateUrl: './login.smart.component.html',
   styleUrl: './login.smart.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginSmartComponent implements OnDestroy {
-  isOpen = input.required<boolean>();
+  isOpen = input<boolean>(false);
   isOpenChange = output<boolean>();
   loginSuccess = output<{ email: string; password: string }>();
   protected loginError = signal<string | null>(null);
