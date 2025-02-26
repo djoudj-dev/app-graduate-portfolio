@@ -168,19 +168,89 @@
           alt="DarkMode"
         />
       </button>
-      <button
-        class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 relative"
-        (click)="toggleLoginModal()"
-        aria-label="Paramètres"
-      >
-        <img
-          ngSrc="/images/icons/settings.svg"
-          alt="Settings"
-          class="w-8 h-8 transition-all duration-300 hover:brightness-125"
-          height="32"
-          width="32"
-        />
-      </button>
+
+      @if (!isLoggedIn()) {
+        <button
+          class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 relative"
+          (click)="toggleLoginModal()"
+          aria-label="Connexion"
+        >
+          <img
+            ngSrc="/images/icons/settings.svg"
+            alt="Settings"
+            class="w-8 h-8 transition-all duration-300 hover:brightness-125"
+            height="32"
+            width="32"
+          />
+        </button>
+      } @else {
+        <div class="relative">
+          <button
+            class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 group"
+            (click)="toggleSettingsMenu()"
+            aria-label="Menu utilisateur"
+          >
+            <img
+              ngSrc="/images/icons/settings.svg"
+              alt="Settings"
+              class="w-8 h-8 transition-all duration-300 hover:brightness-125"
+              height="32"
+              width="32"
+            />
+          </button>
+
+          @if (settingsMenuOpen) {
+            <div
+              class="fixed right-4 top-[4.5rem] w-56 origin-top-right transform transition-all duration-300 ease-out z-50"
+              [class.scale-95]="!settingsMenuOpen"
+              [class.scale-100]="settingsMenuOpen"
+              [class.opacity-0]="!settingsMenuOpen"
+              [class.opacity-100]="settingsMenuOpen"
+            >
+              <div
+                class="bg-white border-2 border-tertiary/20 rounded-lg shadow-xl overflow-hidden"
+              >
+                <div class="p-4 border-b border-tertiary/10">
+                  <p class="text-sm font-medium text-text">Menu Admin</p>
+                </div>
+
+                <div class="p-2">
+                  <button
+                    class="w-full px-4 py-2 text-left rounded-md hover:bg-tertiary/10 transition-colors duration-300 flex items-center gap-3 group"
+                    (click)="navigateToDashboard()"
+                  >
+                    <img
+                      [ngSrc]="'/images/icons/dashboard.svg'"
+                      alt="Dashboard"
+                      class="w-5 h-5 transition-all duration-300 group-hover:scale-110"
+                      width="20"
+                      height="20"
+                      priority
+                    />
+                    <span class="text-sm text-text">Dashboard</span>
+                  </button>
+
+                  <button
+                    class="w-full px-4 py-2 text-left rounded-md hover:bg-red-500/10 transition-colors duration-300 flex items-center gap-3 group mt-1"
+                    (click)="onLogout()"
+                  >
+                    <img
+                      [ngSrc]="'/images/icons/logout.svg'"
+                      alt="Logout"
+                      class="w-5 h-5 transition-all duration-300 group-hover:scale-110"
+                      width="20"
+                      height="20"
+                      priority
+                    />
+                    <span class="text-sm text-text group-hover:text-red-400">Déconnexion</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      }
+
       <button
         class="h-8 w-8 flex items-center justify-center focus:outline-none hover:scale-105 transition-all duration-300 relative"
         aria-label="Ouvrir/fermer le menu"
@@ -255,7 +325,7 @@
 
   <!-- Login Modal -->
   <app-login
-    [isOpen]="loginModalOpen"
+    [isOpen]="loginModalOpen && !isLoggedIn()"
     (isOpenChange)="loginModalOpen = $event"
     (loginSuccess)="authService.login($event.email, $event.password)"
   />
