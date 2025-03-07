@@ -3,7 +3,7 @@ name: Deploiment de l'application Graduate Portfolio
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
