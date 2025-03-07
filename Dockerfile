@@ -18,9 +18,6 @@ RUN mkdir -p /usr/share/nginx/html/browser
 # Copie les fichiers buildés depuis l'étape de build
 COPY --from=build /app/dist/app-graduate-portfolio /usr/share/nginx/html/browser
 
-# Copie la configuration Nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
