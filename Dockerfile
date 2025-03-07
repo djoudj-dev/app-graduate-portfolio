@@ -16,7 +16,7 @@ FROM nginx:alpine
 RUN mkdir -p /usr/share/nginx/html/browser
 
 # Copie les fichiers buildés depuis l'étape de build
-COPY --from=build /app/dist/app-graduate-portfolio /usr/share/nginx/html/browser
+COPY --from=build /app/dist/app-graduate-portfolio/. /usr/share/nginx/html/browser
 
 EXPOSE 80
 
