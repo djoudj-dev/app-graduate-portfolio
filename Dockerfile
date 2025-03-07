@@ -13,10 +13,10 @@ RUN npm run build -- --configuration production
 FROM nginx:alpine
 
 # Crée le répertoire pour les fichiers statiques
-RUN mkdir -p /usr/share/nginx/html/browser
+RUN mkdir -p /usr/share/nginx/html/
 
 # Copie les fichiers buildés depuis l'étape de build
-COPY --from=build /app/dist/app-graduate-portfolio/. /usr/share/nginx/html/browser
+COPY --from=build /app/dist/app-graduate-portfolio/ /usr/share/nginx/html/
 
 EXPOSE 80
 
