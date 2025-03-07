@@ -12,6 +12,9 @@ RUN npm run build -- --configuration production
 # Étape 2 : Servir l'application avec Nginx
 FROM nginx:alpine
 
+# Supprimer la page d'accueil par défaut de Nginx
+RUN rm /usr/share/nginx/html/*
+
 # Crée le répertoire pour les fichiers statiques
 RUN mkdir -p /usr/share/nginx/html/
 
