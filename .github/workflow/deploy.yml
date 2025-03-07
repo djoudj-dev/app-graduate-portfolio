@@ -1,0 +1,50 @@
+name: Deploiment de l'application Graduate Portfolio
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 1 : Checkout du code source
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      # Étape 2 : Installer Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # Étape 3 : Installer les dépendances et construire le projet Angular
+      - name: Installer les dépendances et construire le projet Angular
+        run: |
+          npm ci
+          npm run build
+
+      # Étape 4 : Configurer Docker Buildx
+      - name: Configurer Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Étape 5 : Connexion à Docker Hub
+      - name: Se connecter à Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Étape 6 : Construire et pousser l'image Docker
+      - name: Construire et pousser l'image Docker
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/app-graduate-portfolio:latest
+            ${{ secrets.DOCKER_USERNAME }}/app-graduate-portfolio:${{ github.sha }}
