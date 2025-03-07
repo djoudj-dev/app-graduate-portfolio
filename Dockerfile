@@ -19,7 +19,7 @@ RUN rm /usr/share/nginx/html/*
 RUN mkdir -p /usr/share/nginx/html/
 
 # Copie les fichiers buildés depuis l'étape de build
-COPY --from=build /app/dist/app-graduate-portfolio/ /usr/share/nginx/html/
+COPY --from=build /app/dist/app-graduate-portfolio/browser/ /usr/share/nginx/html/
 
 EXPOSE 80
 
