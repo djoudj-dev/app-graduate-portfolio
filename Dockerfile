@@ -1,20 +1,19 @@
-# Utiliser une image de base
-FROM node:18-alpine
+# Étape 1 : Construire l'application Angular
+FROM node:18-alpine AS build
 
-# Définir le répertoire de travail
 WORKDIR /app
 
-# Copier les fichiers package.json et package-lock.json
 COPY package*.json ./
-
-# Installer les dépendances
 RUN npm install
 
-# Copier le reste de l'application
 COPY . .
+RUN npm run build
 
-# Exposer le port sur lequel l'application écoute
-EXPOSE 3000
+# Étape 2 : Servir l'application avec Nginx
+FROM nginx:alpine
 
-# Commande pour démarrer l'application
-CMD ["npm", "start"]
+COPY --from=build /app/dist/app-graduate-portfolio /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
