@@ -19,7 +19,7 @@ RUN mkdir -p /usr/share/nginx/html/browser
 COPY --from=build /app/dist/app-graduate-portfolio /usr/share/nginx/html/browser
 
 # Copie la configuration Nginx
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
