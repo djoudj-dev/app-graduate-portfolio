@@ -15,7 +15,7 @@ import { ChartsDumbComponent } from './charts.dumb.component';
       >
         <h2 class="text-xl font-semibold mb-6 text-text">Statistiques des visites</h2>
         <app-charts-filter (filterChange)="onFilterChange($event)" />
-        <app-charts-dumb [chartData]="statsService.weeklyStats()" />
+        <app-charts-dumb [chartData]="statsService.weeklyStats() || { labels: [], datasets: [] }" />
       </div>
     </div>
   `
