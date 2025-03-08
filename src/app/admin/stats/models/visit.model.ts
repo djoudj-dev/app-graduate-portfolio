@@ -1,3 +1,5 @@
+import { DataPoint } from '../services/stats.service';
+
 export interface Visit {
   _id?: string;
   timestamp: Date;
@@ -8,11 +10,8 @@ export interface Visit {
 }
 
 export interface VisitStats {
-  period: 'day' | 'week' | 'month' | 'year';
-  data: {
-    labels: string[];
-    values: number[];
-  };
+  period: string;
+  data: DataPoint;
   total: number;
   average: number;
   peak: {

@@ -7,7 +7,7 @@ import { VisitStats } from '../models/visit.model';
 export interface DataPoint {
   labels: string[];
   values: number[];
-  clicks: number[];
+  clicks: number[]; // Assurez-vous que le champ clicks est bien défini ici
 }
 
 export interface CreateVisitStatDto {
@@ -39,6 +39,17 @@ export class StatsService {
           borderWidth: 1,
           hoverBackgroundColor: '#ffed4a',
           hoverBorderColor: '#ffd700',
+          borderRadius: 8,
+          tension: 0.2
+        },
+        {
+          label: 'Clics', // Ajoutez un dataset pour les clics
+          data: stats.data.clicks,
+          backgroundColor: '#4caf50',
+          borderColor: '#4caf50',
+          borderWidth: 1,
+          hoverBackgroundColor: '#66bb6a',
+          hoverBorderColor: '#4caf50',
           borderRadius: 8,
           tension: 0.2
         }
