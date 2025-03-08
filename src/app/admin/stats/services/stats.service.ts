@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, of, tap } from 'rxjs';
+import { environment } from '../../../../environments/environment.development';
 import { VisitStats } from '../models/visit.model';
-
 @Injectable({
   providedIn: 'root'
 })
 export class StatsService {
   private readonly http = inject(HttpClient);
-  private readonly API_URL = '/api/stats';
+  private readonly API_URL = environment.apiUrl + '/stats';
 
   private currentStats = signal<VisitStats>({
     period: 'week',
