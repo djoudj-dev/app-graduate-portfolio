@@ -7,6 +7,7 @@ import { VisitStats } from '../models/visit.model';
 export interface DataPoint {
   labels: string[];
   values: number[];
+  clicks: number[];
 }
 
 export interface CreateVisitStatDto {
