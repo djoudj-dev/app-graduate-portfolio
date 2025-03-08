@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-4">
-  <app-counters-dumb [counters]="countersService.getAllCounters()" />
+  <app-counters-dumb [counters]="countersService.getAllCounters() || defaultCounters" />
   <app-charts-smart />
   <app-about-smart />
   <app-projects />
