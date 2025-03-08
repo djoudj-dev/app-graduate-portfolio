@@ -63,7 +63,7 @@ export class NavbarSmartComponent {
 
   onCallClick() {
     this.countersService.incrementCounter('calls');
-    this.router.navigate(['/home'], { fragment: 'contact' });
+    this.router.navigate(['/'], { fragment: 'contact' });
   }
 
   toggleLoginModal() {
