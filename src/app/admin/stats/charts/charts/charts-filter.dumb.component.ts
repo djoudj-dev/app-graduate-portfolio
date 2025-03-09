@@ -31,16 +31,16 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 export class ChartsFilterDumbComponent {
   private fb = inject(FormBuilder);
 
-  periodControl = this.fb.control('week');
+  periodControl = this.fb.control<'day' | 'week' | 'month' | 'year'>('week');
   dateControl = this.fb.control(new Date().toISOString().split('T')[0]);
 
-  filterChange = output<{ period: string; date: Date }>();
+  filterChange = output<{ period: 'day' | 'week' | 'month' | 'year'; date: Date }>();
 
   constructor() {
     effect(() => {
       if (this.periodControl.value && this.dateControl.value) {
         this.filterChange.emit({
-          period: this.periodControl.value,
+          period: this.periodControl.value as 'day' | 'week' | 'month' | 'year',
           date: new Date(this.dateControl.value)
         });
       }
