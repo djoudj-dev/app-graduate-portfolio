@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, catchError, of, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
 import { VisitStats } from '../models/visit.model';
 
@@ -89,6 +89,11 @@ export class StatsService {
   }
 
   getRealTimeVisits(): Observable<number> {
-    return this.http.get<number>(`${this.API_URL}/real-time-visits`);
+    return this.http.get<number>(`${this.API_URL}/real-time-visits`).pipe(
+      catchError((error) => {
+        console.error('Erreur lors de la récupération des visites en temps réel:', error);
+        return of(0); // Retourne 0 ou une valeur par défaut en cas d'erreur
+      })
+    );
   }
 }

@@ -31,6 +31,7 @@ export class ChartsSmartComponent {
     // Initialiser les données au démarrage
     this.statsService.getStats('week', new Date()).subscribe();
     this.statsService.getRealTimeVisits().subscribe((visits) => {
+      this.realTimeVisits = visits;
       console.log('Nombre de visites en temps réel:', visits);
       // Vous pouvez également mettre à jour une propriété pour afficher cela dans le template
     });
