@@ -10,16 +10,10 @@ export interface Visit {
 }
 
 export interface VisitStats {
-  period: string;
-  data: DataPoint;
+  period: 'day' | 'week' | 'month' | 'year';
   total: number;
   average: number;
-  peak: {
-    value: number;
-    date: Date;
-  };
-  lowest: {
-    value: number;
-    date: Date;
-  };
+  peak: number;
+  lowest: number;
+  data: DataPoint;
 }
