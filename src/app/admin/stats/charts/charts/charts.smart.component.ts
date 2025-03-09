@@ -9,6 +9,9 @@ import { ChartsDumbComponent } from './charts.dumb.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="container mx-auto px-4 py-8">
+      <div>
+        <h3>Visites en temps réel: {{ realTimeVisits }}</h3>
+      </div>
       <div
         class="bg-background/60 backdrop-blur-lg rounded-xl border border-tertiary/20 p-6 
           shadow-lg hover:shadow-xl transition-all duration-300"
@@ -22,10 +25,15 @@ import { ChartsDumbComponent } from './charts.dumb.component';
 })
 export class ChartsSmartComponent {
   protected readonly statsService = inject(StatsService);
+  protected realTimeVisits: number = 0;
 
   constructor() {
     // Initialiser les données au démarrage
     this.statsService.getStats('week', new Date()).subscribe();
+    this.statsService.getRealTimeVisits().subscribe((visits) => {
+      console.log('Nombre de visites en temps réel:', visits);
+      // Vous pouvez également mettre à jour une propriété pour afficher cela dans le template
+    });
   }
 
   onFilterChange(filter: { period: string; date: Date }) {

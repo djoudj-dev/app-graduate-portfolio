@@ -87,4 +87,8 @@ export class StatsService {
   getWeeklyStats() {
     return this.weeklyStats();
   }
+
+  getRealTimeVisits(): Observable<number> {
+    return this.http.get<number>(`${this.API_URL}/real-time-visits`);
+  }
 }
