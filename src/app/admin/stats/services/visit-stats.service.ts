@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
+import { ChartData } from 'chart.js';
 import { Observable, catchError, of, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
-import { VisitStats } from '../models/visit.model';
-import { ChartData } from 'chart.js';
+import { VisitStats } from '../models/visit-stats.model'; // Assurez-vous que ce modèle est correct
 
 export interface DataPoint {
   labels: string[];
@@ -19,14 +19,13 @@ export interface CreateVisitStatDto {
 @Injectable({
   providedIn: 'root'
 })
-export class StatsService {
+export class VisitStatsService {
   private readonly http = inject(HttpClient);
   private readonly API_URL = `${environment.apiUrl}/stats`;
   private currentStats = signal<VisitStats | null>(null);
 
   readonly weeklyStats = computed<ChartData<'bar'>>(() => {
     const stats = this.currentStats();
-
     return {
       labels: stats?.data.labels ?? [],
       datasets: [

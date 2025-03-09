@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { Counters } from '../models/counters.model';
 
@@ -48,20 +48,18 @@ export class CountersService {
   /**
    * Incrémente un compteur et envoie les nouvelles valeurs au backend
    */
-  incrementCounter(key: keyof Counters) {
-    if (!this.countersSignal()) return;
+  incrementCounter(key: keyof Counters): Observable<Counters> {
+    const currentCounters = this.countersSignal();
+    if (!currentCounters)
+      return of({ calls: 0, cv: 0, github: 0, linkedin: 0, projects: 0, websites: 0 });
 
-    this.countersSignal.update((counters) => {
-      if (!counters) return counters;
-      const updatedCounters = { ...counters, [key]: counters[key] + 1 };
-      this.sendCountersData(updatedCounters).subscribe();
-      return updatedCounters;
-    });
+    const updatedCounters = { ...currentCounters, [key]: (currentCounters[key] ?? 0) + 1 };
+    return this.sendCountersData(updatedCounters);
   }
 
-  private sendCountersData(data: Counters): Observable<any> {
+  private sendCountersData(data: Counters): Observable<Counters> {
     return this.http
-      .post(this.API_URL, data)
-      .pipe(tap(() => localStorage.setItem('counters', JSON.stringify(data))));
+      .post<Counters>(this.API_URL, data)
+      .pipe(tap(() => this.countersSignal.set(data)));
   }
 }

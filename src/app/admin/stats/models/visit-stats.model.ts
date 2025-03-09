@@ -1,4 +1,4 @@
-import { DataPoint } from '../services/stats.service';
+import { DataPoint } from '../services/visit-stats.service';
 
 export interface Visit {
   _id?: string;
