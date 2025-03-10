@@ -40,28 +40,13 @@ export class AboutDumbComponent {
     img: '/images/icons/linkedin.svg'
   });
 
-  protected onDownloadCV(): void {
-    if (this._about()?.cvLink) {
-      window.open(this._about()!.cvLink, '_blank');
-    }
-  }
-
-  protected onOpenGitHub(): void {
-    if (this._about()?.githubLink) {
-      window.open(this._about()!.githubLink, '_blank');
-    }
-  }
-
-  protected onOpenLinkedIn(): void {
-    if (this._about()?.linkedinLink) {
-      window.open(this._about()!.linkedinLink, '_blank');
-    }
-  }
-
   protected onDownloadCVClick() {
     this.countersService.incrementCounter('cv').subscribe({
       next: (counters) => {
         console.log('CV counter updated:', counters);
+        if (this._about()?.cvLink) {
+          window.open(this._about()!.cvLink, '_blank');
+        }
       },
       error: (err) => {
         console.error('Error incrementing CV counter:', err);
@@ -73,6 +58,9 @@ export class AboutDumbComponent {
     this.countersService.incrementCounter('github').subscribe({
       next: (counters) => {
         console.log('GitHub counter updated:', counters);
+        if (this._about()?.githubLink) {
+          window.open(this._about()!.githubLink, '_blank');
+        }
       },
       error: (err) => {
         console.error('Error incrementing GitHub counter:', err);
@@ -84,6 +72,9 @@ export class AboutDumbComponent {
     this.countersService.incrementCounter('linkedin').subscribe({
       next: (counters) => {
         console.log('LinkedIn counter updated:', counters);
+        if (this._about()?.linkedinLink) {
+          window.open(this._about()!.linkedinLink, '_blank');
+        }
       },
       error: (err) => {
         console.error('Error incrementing LinkedIn counter:', err);
