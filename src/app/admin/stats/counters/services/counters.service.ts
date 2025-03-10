@@ -37,20 +37,49 @@ export class CountersService {
   }
 
   /**
-   * Récupère les compteurs depuis le backend
+   * Récupère les compteurs depuis le localStorage ou le backend
    */
   fetchCounters(): Observable<Counters> {
-    return this.http
-      .get<Counters>(this.API_URL)
-      .pipe(tap((counters) => this.countersSignal.set(counters)));
+    const countersFromStorage = localStorage.getItem('counters');
+    if (countersFromStorage) {
+      const counters = JSON.parse(countersFromStorage);
+      this.countersSignal.set(counters);
+      return new Observable<Counters>((observer) => {
+        observer.next(counters);
+        observer.complete();
+      });
+    } else {
+      return this.http.get<Counters>(this.API_URL).pipe(
+        tap((counters) => {
+          this.countersSignal.set(counters);
+          localStorage.setItem('counters', JSON.stringify(counters));
+        })
+      );
+    }
   }
 
   /**
-   * Incrémente un compteur et envoie les nouvelles valeurs au backend
+   * Incrémente un compteur et met à jour le localStorage
    */
   incrementCounter(counterName: keyof Counters): Observable<Counters> {
-    return this.http
-      .post<Counters>(`${this.API_URL}/increment`, { counterName })
-      .pipe(tap((counters) => this.countersSignal.set(counters)));
+    const currentCounters = this.countersSignal() || {
+      calls: 0,
+      cv: 0,
+      github: 0,
+      linkedin: 0,
+      projects: 0,
+      websites: 0
+    };
+
+    // Incrémente le compteur localement
+    currentCounters[counterName]++;
+    this.countersSignal.set(currentCounters);
+    localStorage.setItem('counters', JSON.stringify(currentCounters));
+
+    // Optionnel : Vous pouvez également faire un appel au backend ici
+    return new Observable<Counters>((observer) => {
+      observer.next(currentCounters);
+      observer.complete();
+    });
   }
 }
