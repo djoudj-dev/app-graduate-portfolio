@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { ChartData } from 'chart.js';
 import { Observable, catchError, of, tap } from 'rxjs';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../../environments/environment';
 import { VisitStats } from '../models/visit-stats.model'; // Assurez-vous que ce modèle est correct
 
 export interface DataPoint {
