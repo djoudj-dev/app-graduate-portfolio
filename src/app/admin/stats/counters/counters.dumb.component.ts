@@ -55,6 +55,21 @@ import { Counters } from './models/counters.model';
             <span class="text-text text-sm">Visites GitHub</span>
           </div>
         </div>
+        <div
+          class="p-6 rounded-lg bg-background/90 backdrop-blur-md border-2 border-tertiary/20 shadow-lg transform hover:-translate-y-1 transition-all duration-300"
+        >
+          <div class="flex flex-col items-center">
+            <img
+              ngSrc="/images/icons/linkedin.svg"
+              alt="LinkedIn"
+              class="w-12 h-12 mb-4 invert-0 dark:invert drop-shadow-[0_0_1px_theme(colors.text)] dark:drop-shadow-none"
+              width="48"
+              height="48"
+            />
+            <span class="text-3xl font-bold text-tertiary mb-2">{{ counters().linkedin }}</span>
+            <span class="text-text text-sm">Visites LinkedIn</span>
+          </div>
+        </div>
       </div>
     </div>
   `,
