@@ -30,7 +30,7 @@
           [title]="cvButton().title"
           [type]="cvButton().type"
           [img]="cvButton().img"
-          (click)="onDownloadCV()"
+          (click)="onDownloadCVClick()"
         />
       }
       @if (_about()?.githubLink) {
@@ -39,7 +39,7 @@
           [title]="githubButton().title"
           [type]="githubButton().type"
           [img]="githubButton().img"
-          (click)="onOpenGitHub()"
+          (click)="onOpenGitHubClick()"
         />
       }
       @if (_about()?.linkedinLink) {
@@ -48,7 +48,7 @@
           [title]="linkedinButton().title"
           [type]="linkedinButton().type"
           [img]="linkedinButton().img"
-          (click)="onOpenLinkedIn()"
+          (click)="onOpenLinkedInClick()"
         />
       }
     </div>

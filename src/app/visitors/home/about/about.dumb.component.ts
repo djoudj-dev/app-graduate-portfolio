@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, signal } from '@angular/core';
 import { About } from '../../../admin/about/models/about.model';
+import { CountersService } from '../../../admin/stats/counters/services/counters.service';
 import { ButtonDumbComponent } from '../../../shared/components/button/button.dumb.component';
 
 @Component({
@@ -15,6 +16,7 @@ export class AboutDumbComponent {
   }
 
   protected readonly _about = signal<About | null>(null);
+  protected readonly countersService = inject(CountersService);
 
   // Configuration des boutons
   protected readonly cvButton = signal({
@@ -54,5 +56,38 @@ export class AboutDumbComponent {
     if (this._about()?.linkedinLink) {
       window.open(this._about()!.linkedinLink, '_blank');
     }
+  }
+
+  protected onDownloadCVClick() {
+    this.countersService.incrementCounter('cv').subscribe({
+      next: (counters) => {
+        console.log('CV counter updated:', counters);
+      },
+      error: (err) => {
+        console.error('Error incrementing CV counter:', err);
+      }
+    });
+  }
+
+  protected onOpenGitHubClick() {
+    this.countersService.incrementCounter('github').subscribe({
+      next: (counters) => {
+        console.log('GitHub counter updated:', counters);
+      },
+      error: (err) => {
+        console.error('Error incrementing GitHub counter:', err);
+      }
+    });
+  }
+
+  protected onOpenLinkedInClick() {
+    this.countersService.incrementCounter('linkedin').subscribe({
+      next: (counters) => {
+        console.log('LinkedIn counter updated:', counters);
+      },
+      error: (err) => {
+        console.error('Error incrementing LinkedIn counter:', err);
+      }
+    });
   }
 }
