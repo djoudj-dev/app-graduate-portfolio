@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { Observable, of, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { Counters } from '../models/counters.model';
 
@@ -48,18 +48,9 @@ export class CountersService {
   /**
    * Incrémente un compteur et envoie les nouvelles valeurs au backend
    */
-  incrementCounter(key: keyof Counters): Observable<Counters> {
-    const currentCounters = this.countersSignal();
-    if (!currentCounters)
-      return of({ calls: 0, cv: 0, github: 0, linkedin: 0, projects: 0, websites: 0 });
-
-    const updatedCounters = { ...currentCounters, [key]: (currentCounters[key] ?? 0) + 1 };
-    return this.sendCountersData(updatedCounters);
-  }
-
-  private sendCountersData(data: Counters): Observable<Counters> {
+  incrementCounter(counterName: keyof Counters): Observable<Counters> {
     return this.http
-      .post<Counters>(this.API_URL, data)
-      .pipe(tap(() => this.countersSignal.set(data)));
+      .post<Counters>(`${this.API_URL}/increment`, { counterName })
+      .pipe(tap((counters) => this.countersSignal.set(counters)));
   }
 }
