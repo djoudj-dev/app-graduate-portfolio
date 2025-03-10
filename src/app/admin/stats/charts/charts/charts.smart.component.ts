@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { VisitStatsService } from '../../services/visit-stats.service';
+import { VisitStatsService } from '../services/visit-stats.service';
 import { ChartsFilterDumbComponent } from './charts-filter.dumb.component';
 import { ChartsDumbComponent } from './charts.dumb.component';
 
