@@ -43,9 +43,20 @@ export class CountersService {
     const countersFromStorage = localStorage.getItem('counters');
     if (countersFromStorage) {
       const counters = JSON.parse(countersFromStorage);
-      this.countersSignal.set(counters);
+
+      // Ensure the counters are valid numbers
+      const validCounters: Counters = {
+        calls: Number(counters.calls) || 0,
+        cv: Number(counters.cv) || 0,
+        github: Number(counters.github) || 0,
+        linkedin: Number(counters.linkedin) || 0,
+        projects: Number(counters.projects) || 0,
+        websites: Number(counters.websites) || 0
+      };
+
+      this.countersSignal.set(validCounters);
       return new Observable<Counters>((observer) => {
-        observer.next(counters);
+        observer.next(validCounters); // Emit the valid counters
         observer.complete();
       });
     } else {
@@ -71,12 +82,11 @@ export class CountersService {
       websites: 0
     };
 
-    // Incrémente le compteur localement
-    currentCounters[counterName]++;
+    // Assurez-vous que la valeur est un nombre avant d'incrémenter
+    currentCounters[counterName] = (currentCounters[counterName] || 0) + 1;
     this.countersSignal.set(currentCounters);
     localStorage.setItem('counters', JSON.stringify(currentCounters));
 
-    // Optionnel : Vous pouvez également faire un appel au backend ici
     return new Observable<Counters>((observer) => {
       observer.next(currentCounters);
       observer.complete();
