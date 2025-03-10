@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { Counters } from '../models/counters.model';
 
@@ -87,9 +87,28 @@ export class CountersService {
     this.countersSignal.set(currentCounters);
     localStorage.setItem('counters', JSON.stringify(currentCounters));
 
+    // Sauvegarder dans MongoDB
+    this.saveCounters(currentCounters).subscribe();
+
     return new Observable<Counters>((observer) => {
       observer.next(currentCounters);
       observer.complete();
     });
+  }
+
+  /**
+   * Sauvegarde les compteurs dans MongoDB
+   */
+  saveCounters(counters: Counters): Observable<Counters> {
+    return this.http.post<Counters>(this.API_URL, counters).pipe(
+      tap((savedCounters) => {
+        this.countersSignal.set(savedCounters);
+        localStorage.setItem('counters', JSON.stringify(savedCounters));
+      }),
+      catchError((error) => {
+        console.error('Erreur lors de la sauvegarde des compteurs', error);
+        return of(counters); // Retourne les compteurs non sauvegardés
+      })
+    );
   }
 }
