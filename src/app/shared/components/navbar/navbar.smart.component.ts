@@ -62,7 +62,14 @@ export class NavbarSmartComponent {
   }
 
   onCallClick() {
-    this.countersService.incrementCounter('calls');
+    this.countersService.incrementCounter('calls').subscribe({
+      next: (counters) => {
+        console.log('Counters updated:', counters);
+      },
+      error: (err) => {
+        console.error('Error incrementing counter:', err);
+      }
+    });
     this.router.navigate(['/'], { fragment: 'contact' });
   }
 
