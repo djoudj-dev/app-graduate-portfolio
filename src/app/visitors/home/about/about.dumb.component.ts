@@ -41,6 +41,7 @@ export class AboutDumbComponent {
   });
 
   protected onDownloadCVClick() {
+    console.log('CV Link:', this._about()?.cvLink);
     this.countersService.incrementCounter('cv').subscribe({
       next: (counters) => {
         console.log('CV counter updated:', counters);
@@ -55,6 +56,7 @@ export class AboutDumbComponent {
   }
 
   protected onOpenGitHubClick() {
+    console.log('GitHub Link:', this._about()?.githubLink);
     this.countersService.incrementCounter('github').subscribe({
       next: (counters) => {
         console.log('GitHub counter updated:', counters);
@@ -69,6 +71,7 @@ export class AboutDumbComponent {
   }
 
   protected onOpenLinkedInClick() {
+    console.log('LinkedIn Link:', this._about()?.linkedinLink);
     this.countersService.incrementCounter('linkedin').subscribe({
       next: (counters) => {
         console.log('LinkedIn counter updated:', counters);
